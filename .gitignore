@@ -4,6 +4,10 @@ test/Web.Test/bin/
 test/Web.Test/obj/
 src/Core/bin/
 src/Core/obj/
+src/Aws/obj/
+src/Aws/bin/
+src/Common/obj/
+src/Common/bin/
 test/Core.Test/bin/
 test/Core.Test/obj/
 .vs

@@ -1,3 +1,9 @@
+using Amazon;
+using Amazon.DynamoDBv2;
+using Amazon.Extensions.NETCore.Setup;
+using Aws.Services;
+using Core.Services;
+
 namespace BookClub;
 
 public class Startup
@@ -13,6 +19,14 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddSingleton<IBookService, BookService>();
+        services.AddSingleton<IBookDynamoDbStorageService, BookDynamoDbStorageService>();
+        var awsOptions = new AWSOptions()
+        {
+            Region = RegionEndpoint.EUWest2
+        };
+        services.AddDefaultAWSOptions(awsOptions);
+        services.AddAWSService<IAmazonDynamoDB>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
