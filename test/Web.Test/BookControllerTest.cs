@@ -1,8 +1,8 @@
-﻿using BookClub.Controllers;
-using Core.Models;
+﻿using Core.Models;
 using Core.Services;
 using FakeItEasy;
 using NUnit.Framework;
+using Web.Controllers;
 
 namespace Web.Test;
 
@@ -20,7 +20,7 @@ public class BookControllerTest
     [Test]
     public void Get_Returns_Correct_Book_Details()
     {
-        var book = new Book(1, "TestBook");
+        var book = new Book("1", "TestBook");
         _bookController.Get();
     }
 }

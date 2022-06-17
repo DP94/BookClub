@@ -2,13 +2,13 @@ using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookClub.Controllers;
+namespace Web.Controllers;
 
 [Route("v1/[controller]")]
 public class BookController : ControllerBase
 {
 
-    private IBookService _bookService;
+    private readonly IBookService _bookService;
     
     public BookController(IBookService service)
     {
@@ -16,31 +16,34 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
-    public IEnumerable<string> Get()
+    public async Task<IActionResult> Get()
     {
-        var book = new Book(1, "");
-        return new string[] { "Horus Rising", "False Gods", "Galaxy in Flames", "The Flight of the Eisenstein", "Fulgrim" };
+        var books = await this._bookService.GetBooks();
+        return Ok(books);
     }
     
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> Get(string id)
     {
         var book = await this._bookService.GetBookById(id);
         return Ok(book);
     }
     
     [HttpPost]
-    public void Post([FromBody]Book book)
+    public async Task<ActionResult> Post([FromBody]Book book)
     {
+        book.Id = Guid.NewGuid().ToString();
+        var createdBook = await this._bookService.CreateBook(book);
+        return new CreatedResult(createdBook.Id, createdBook);
     }
     
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody]Book book)
+    [HttpPut("{id:int}")]
+    public void Put(string id, [FromBody]Book book)
     {
     }
     
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete(string id)
     {
     }
 }

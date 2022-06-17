@@ -6,20 +6,25 @@ namespace Core.Services;
 public class BookService : IBookService
 {
 
-    private IBookDynamoDbStorageService _dynamoDbStorageService;
+    private readonly IBookDynamoDbStorageService _dynamoDbStorageService;
 
     public BookService(IBookDynamoDbStorageService service)
     {
         this._dynamoDbStorageService = service;
     }
     
-    public List<Book> GetBooks()
+    public async Task<List<Book>> GetBooks()
     {
-        throw new NotImplementedException();
+        return await this._dynamoDbStorageService.GetBooks();
     }
 
-    public async Task<Book> GetBookById(int id)
+    public async Task<Book> GetBookById(string id)
     {
         return await this._dynamoDbStorageService.GetBookById(id);
+    }
+
+    public async Task<Book> CreateBook(Book book)
+    {
+        return await this._dynamoDbStorageService.CreateBook(book);
     }
 }

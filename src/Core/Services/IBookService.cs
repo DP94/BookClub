@@ -4,6 +4,8 @@ namespace Core.Services;
 
 public interface IBookService
 {
-    List<Book> GetBooks();
-    Task<Book> GetBookById(int id);
+    Task<List<Book>> GetBooks();
+    Task<Book> GetBookById(string id);
+
+    Task<Book> CreateBook(Book book);
 }
