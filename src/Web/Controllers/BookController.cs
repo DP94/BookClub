@@ -1,3 +1,4 @@
+using Castle.Core.Internal;
 using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,11 @@ public class BookController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Post([FromBody]Book book)
     {
+        if (book.Name.IsNullOrEmpty())
+        {
+            return BadRequest();
+        }
+        
         book.Id = Guid.NewGuid().ToString();
         var createdBook = await this._bookService.CreateBook(book);
         return new CreatedResult(createdBook.Id, createdBook);
