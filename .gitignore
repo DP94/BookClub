@@ -1,4 +1,10 @@
-/src/Web/bin
-/src/Web/obj
-/src/Core/bin/
-/src/Core/obj/
+src/Web/bin/
+src/Web/obj/
+test/Web.Test/bin/
+test/Web.Test/obj/
+src/Core/bin/
+src/Core/obj/
+test/Core.Test/bin/
+test/Core.Test/obj/
+.vs
+packages
