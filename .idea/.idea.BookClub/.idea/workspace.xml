@@ -7,16 +7,22 @@
     <projectFile profileName="Mock Lambda Test Tool">src/Web/Web.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bac47f68-efe2-4623-8d65-4c609ee8c27f" name="Changes" comment="Add DynamoDB support; new projects">
-      <change afterPath="$PROJECT_DIR$/src/Common/Util/DynamoDbConstants.cs" afterDir="false" />
+    <list default="true" id="bac47f68-efe2-4623-8d65-4c609ee8c27f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Aws/Util/DynamoDbUtility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/Aws.Test/Aws.Test.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/Aws.Test/Util/DynamoDbUtilityTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BookClub/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BookClub/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookClub.sln" beforeDir="false" afterPath="$PROJECT_DIR$/BookClub.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Aws/Services/BookDynamoDbStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Services/BookDynamoDbStorageService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Aws/Services/IBookDynamoDbStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Services/IBookDynamoDbStorageService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Common/Models/Book.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Common/Models/Book.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Services/BookService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Services/BookService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Services/IBookService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Services/IBookService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Web/Controllers/BookController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/Controllers/BookController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Web.Test/BookControllerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Web.Test/BookControllerTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Core.Test/Core.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/test/Core.Test/Core.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Core.Test/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Core.Test/packages.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Web.Test/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Web.Test/Web.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/test/Web.Test/Web.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Web.Test/packages.config" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,10 +39,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c78adfeaca6b49e3b0d6b6c162dcf4579a908/f6/3903b4f9/QueryRequest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9d4f4ac7db6d2c5d183ab2d92602280ed4349fd6e6a1b6313546b3d01fdab5/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c6354d55b4c1fdbe22621ea48185af62cdeadcf4f28d9ed0890dfdf36c6/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/dpell/RiderProjects/BookClub/src/Core/Models/Book.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/test/Web.Test/BookControllerTest.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/dpell/RiderProjects/BookClub/test/Web.Test/obj/Web.Test.csproj.nuget.dgspec.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/dpell/RiderProjects/BookClub/test/Web.Test/packages.config" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -52,18 +55,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "RiderUnitTestingPageId",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunManager" selected=".NET Launch Settings Profile.Web: BookClub">
     <configuration name="Web: BookClub" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Web/Web.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
@@ -101,25 +104,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Add Core.Test.csproj" />
     <MESSAGE value="Add DynamoDB support; new projects" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add DynamoDB support; new projects" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/Web/Controllers/BookController.cs</url>
-          <line>36</line>
-          <properties documentPath="C:\Users\dpell\RiderProjects\BookClub\src\Web\Controllers\BookController.cs" initialLine="36" containingFunctionPresentation="method 'Post'">
-            <startOffsets>
-              <option value="871" />
-            </startOffsets>
-            <endOffsets>
-              <option value="925" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Implement Get all and POST methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement Get all and POST methods" />
   </component>
 </project>

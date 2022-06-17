@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Aws.Util;
 using Common.Util;
 using Core.Models;
 
@@ -17,17 +18,7 @@ public class BookDynamoDbStorageService : IBookDynamoDbStorageService
     public async Task<List<Book>> GetBooks()
     {
         var result = await this._dynamoDb.ScanAsync(new ScanRequest(DynamoDbConstants.BookTableName));
-        var bookList = new List<Book>();
-        foreach (var i in result.Items)
-        {
-            if (i.TryGetValue(DynamoDbConstants.BookIdColName, out var bookId) && i.TryGetValue(DynamoDbConstants.NameColName, out var bookName))
-            {
-                var book = new Book(bookId.S, bookName.S);
-                bookList.Add(book);
-            }
-        }
-
-        return bookList;
+        return result.Items.Select(DynamoDbUtility.GetBookFromAttributes).ToList();
     }
 
     public async Task<Book> GetBookById(string id)
@@ -48,18 +39,17 @@ public class BookDynamoDbStorageService : IBookDynamoDbStorageService
             }
         });
         var items = bookResponse.Items.FirstOrDefault();
-        if (items.TryGetValue(DynamoDbConstants.BookIdColName, out var bookId) && items.TryGetValue(DynamoDbConstants.NameColName, out var bookName))
+        if (items == null || !items.Any())
         {
-            return new Book(bookId.S, bookName.S);
+            throw new ResourceNotFoundException($"Book with {id} not found!");
         }
-
-        throw new ResourceNotFoundException($"Book with {id} not found!");
-
+        return DynamoDbUtility.GetBookFromAttributes(items);
+        
     }
 
     public async Task<Book> CreateBook(Book book)
     {
-        var response = await this._dynamoDb.PutItemAsync(new PutItemRequest
+        await this._dynamoDb.PutItemAsync(new PutItemRequest
         {
             TableName = DynamoDbConstants.BookTableName,
             Item = new Dictionary<string, AttributeValue>
@@ -72,7 +62,6 @@ public class BookDynamoDbStorageService : IBookDynamoDbStorageService
                 }
             }
         });
-
         return book;
     }
 }

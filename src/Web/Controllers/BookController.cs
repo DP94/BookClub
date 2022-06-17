@@ -22,7 +22,7 @@ public class BookController : ControllerBase
         return Ok(books);
     }
     
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
         var book = await this._bookService.GetBookById(id);
@@ -37,7 +37,7 @@ public class BookController : ControllerBase
         return new CreatedResult(createdBook.Id, createdBook);
     }
     
-    [HttpPut("{id:int}")]
+    [HttpPut("{id}")]
     public void Put(string id, [FromBody]Book book)
     {
     }

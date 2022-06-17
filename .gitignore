@@ -10,5 +10,7 @@ src/Common/obj/
 src/Common/bin/
 test/Core.Test/bin/
 test/Core.Test/obj/
+test/Aws.Test/obj/
+test/Aws.Test/bin/
 .vs
 packages
