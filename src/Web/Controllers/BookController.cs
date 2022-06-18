@@ -18,6 +18,7 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
+    [SwaggerResponse(200, "Success", typeof(Book))]
     [SwaggerOperation("Gets all books")]
     public async Task<IActionResult> Get()
     {
@@ -26,7 +27,7 @@ public class BookController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    [SwaggerResponse(200)]
+    [SwaggerResponse(200, "Success", typeof(Book))]
     [SwaggerOperation("Gets a book by its ID")]
     public async Task<IActionResult> Get(string id)
     {
@@ -36,7 +37,7 @@ public class BookController : ControllerBase
     
     [HttpPost]
     [SwaggerOperation("Creates a new book")]
-    [SwaggerResponse(201, "Book created successfully")]
+    [SwaggerResponse(201, "Book created successfully", typeof(Book))]
     public async Task<ActionResult> Post([FromBody][SwaggerParameter("The book to create")] Book book)
     {
         if (book.Name.IsNullOrEmpty())
@@ -50,6 +51,7 @@ public class BookController : ControllerBase
     }
     
     [SwaggerOperation("Updates a book")]
+    [SwaggerResponse(200, "Book updated", typeof(Book))]
     [HttpPut("{id}")]
     public async Task<IActionResult> Put([SwaggerParameter("ID of the book to update")] string id, [FromBody]Book book)
     {
@@ -58,7 +60,7 @@ public class BookController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    [SwaggerResponse(204)]
+    [SwaggerResponse(204, "Book deleted")]
     [SwaggerOperation("Deletes a book")]
     public async Task<IActionResult> Delete([SwaggerParameter("ID of the book to delete")] string id)
     {
