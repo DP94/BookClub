@@ -18,6 +18,7 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
+    [SwaggerOperation("Gets all books")]
     public async Task<IActionResult> Get()
     {
         var books = await this._bookService.GetBooks();
@@ -25,6 +26,8 @@ public class BookController : ControllerBase
     }
     
     [HttpGet("{id}")]
+    [SwaggerResponse(200)]
+    [SwaggerOperation("Gets a book by its ID")]
     public async Task<IActionResult> Get(string id)
     {
         var book = await this._bookService.GetBookById(id);
@@ -32,7 +35,9 @@ public class BookController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] Book book)
+    [SwaggerOperation("Creates a new book")]
+    [SwaggerResponse(201, "Book created successfully")]
+    public async Task<ActionResult> Post([FromBody][SwaggerParameter("The book to create")] Book book)
     {
         if (book.Name.IsNullOrEmpty())
         {
@@ -44,16 +49,18 @@ public class BookController : ControllerBase
         return new CreatedResult(createdBook.Id, createdBook);
     }
     
+    [SwaggerOperation("Updates a book")]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(string id, [FromBody]Book book)
+    public async Task<IActionResult> Put([SwaggerParameter("ID of the book to update")] string id, [FromBody]Book book)
     {
         var response = await this._bookService.UpdateBook(book);
         return Ok(response);
     }
     
-    [SwaggerResponse(204)]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    [SwaggerResponse(204)]
+    [SwaggerOperation("Deletes a book")]
+    public async Task<IActionResult> Delete([SwaggerParameter("ID of the book to delete")] string id)
     {
         await this._bookService.DeleteBook(id);
         return NoContent();
