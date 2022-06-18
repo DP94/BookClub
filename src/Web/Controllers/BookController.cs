@@ -49,7 +49,9 @@ public class BookController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public void Delete(string id)
+    public async Task<IActionResult> Delete(string id)
     {
+        await this._bookService.DeleteBook(id);
+        return NoContent();
     }
 }

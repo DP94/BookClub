@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2;
+﻿using System.Net;
+using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Aws.Util;
 using Common.Util;
@@ -63,5 +64,19 @@ public class BookDynamoDbStorageService : IBookDynamoDbStorageService
             }
         });
         return book;
+    }
+
+    public async Task DeleteBook(string id)
+    {
+        var response = await this._dynamoDb.DeleteItemAsync(new DeleteItemRequest
+        {
+            TableName = DynamoDbConstants.BookTableName,
+            Key = new Dictionary<string, AttributeValue>
+            {
+                {
+                    DynamoDbConstants.BookIdColName, new AttributeValue(id)
+                }
+            }
+        });
     }
 }

@@ -27,4 +27,9 @@ public class BookService : IBookService
     {
         return await this._dynamoDbStorageService.CreateBook(book);
     }
+
+    public Task DeleteBook(string id)
+    {
+        return this._dynamoDbStorageService.DeleteBook(id);
+    }
 }
