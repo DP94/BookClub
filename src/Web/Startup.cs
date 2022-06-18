@@ -27,6 +27,10 @@ public class Startup
         };
         services.AddDefaultAWSOptions(awsOptions);
         services.AddAWSService<IAmazonDynamoDB>();
+        services.AddSwaggerGen(options =>
+        {
+            options.EnableAnnotations();
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -51,5 +55,7 @@ public class Startup
                 await context.Response.WriteAsync("Welcome to running ASP.NET Core on AWS Lambda");
             });
         });
+        app.UseSwagger();
+        app.UseSwaggerUI();
     }
 }

@@ -2,6 +2,7 @@ using Castle.Core.Internal;
 using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Web.Controllers;
 
@@ -50,6 +51,7 @@ public class BookController : ControllerBase
         return Ok(response);
     }
     
+    [SwaggerResponse(204)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
