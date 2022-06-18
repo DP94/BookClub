@@ -79,4 +79,14 @@ public class BookDynamoDbStorageService : IBookDynamoDbStorageService
             }
         });
     }
+
+    public async Task<Book> UpdateBook(Book book)
+    {
+        var response = await this._dynamoDb.PutItemAsync(new PutItemRequest
+        {
+            TableName = DynamoDbConstants.BookTableName,
+            Item = DynamoDbUtility.GetAttributesFromBook(book)
+        });
+        return book;
+    }
 }

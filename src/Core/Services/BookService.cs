@@ -32,4 +32,9 @@ public class BookService : IBookService
     {
         return this._dynamoDbStorageService.DeleteBook(id);
     }
+
+    public Task<Book> UpdateBook(Book book)
+    {
+        return this._dynamoDbStorageService.UpdateBook(book);
+    }
 }

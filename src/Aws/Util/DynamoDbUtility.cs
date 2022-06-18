@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2.Model;
+﻿using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
 using Common.Util;
 using Core.Models;
 
@@ -19,5 +20,13 @@ public class DynamoDbUtility
             book.Id = id.S;
         }
         return book;
+    }
+
+    public static Dictionary<string, AttributeValue> GetAttributesFromBook(Book book)
+    {
+        var attributeValues = new Dictionary<string, AttributeValue>();
+        attributeValues.TryAdd(DynamoDbConstants.NameColName, new AttributeValue(book.Name));
+        attributeValues.TryAdd(DynamoDbConstants.BookIdColName, new AttributeValue(book.Id));
+        return attributeValues;
     }
 }

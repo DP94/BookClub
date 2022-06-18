@@ -31,7 +31,7 @@ public class BookController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody]Book book)
+    public async Task<ActionResult> Post([FromBody] Book book)
     {
         if (book.Name.IsNullOrEmpty())
         {
@@ -44,8 +44,10 @@ public class BookController : ControllerBase
     }
     
     [HttpPut("{id}")]
-    public void Put(string id, [FromBody]Book book)
+    public async Task<IActionResult> Put(string id, [FromBody]Book book)
     {
+        var response = await this._bookService.UpdateBook(book);
+        return Ok(response);
     }
     
     [HttpDelete("{id}")]

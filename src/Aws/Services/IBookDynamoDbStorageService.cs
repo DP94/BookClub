@@ -10,4 +10,6 @@ public interface IBookDynamoDbStorageService
     Task<Book> CreateBook(Book book);
 
     Task DeleteBook(string id);
+
+    Task<Book> UpdateBook(Book book);
 }
