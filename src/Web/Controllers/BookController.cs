@@ -1,20 +1,25 @@
 using Castle.Core.Internal;
 using Core.Models;
 using Core.Services;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Web.Controllers;
 
 [Route("v1/[controller]")]
+[EnableCors]
 public class BookController : ControllerBase
 {
 
     private readonly IBookService _bookService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     
-    public BookController(IBookService service)
+    public BookController(IBookService service, IHttpContextAccessor httpContextAccessor)
     {
         this._bookService = service;
+        this._httpContextAccessor = httpContextAccessor;
     }
     
     [HttpGet]
@@ -44,10 +49,11 @@ public class BookController : ControllerBase
         {
             return BadRequest();
         }
-        
+
         book.Id = Guid.NewGuid().ToString();
         var createdBook = await this._bookService.CreateBook(book);
-        return new CreatedResult(createdBook.Id, createdBook);
+        return new CreatedResult($"{this._httpContextAccessor.HttpContext?.Request.GetEncodedUrl()}/{createdBook.Id}",
+            createdBook);
     }
     
     [SwaggerOperation("Updates a book")]

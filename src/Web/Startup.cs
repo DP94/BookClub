@@ -1,6 +1,7 @@
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
+using Amazon.Runtime;
 using Aws.Services;
 using Core.Services;
 
@@ -31,6 +32,12 @@ public class Startup
         {
             options.EnableAnnotations();
         });
+        services.AddHttpContextAccessor();
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+                policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -44,7 +51,12 @@ public class Startup
         app.UseHttpsRedirection();
 
         app.UseRouting();
-
+        app.UseCors();
+        app.Use((context, next) =>
+        {
+            context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+            return next.Invoke();
+        });
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>

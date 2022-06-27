@@ -19,6 +19,11 @@ public class DynamoDbUtility
         {
             book.Id = id.S;
         }
+        
+        if (items.TryGetValue(DynamoDbConstants.ImageSourceColName, out var imgSrc))
+        {
+            book.ImageSource = imgSrc.S;
+        }
         return book;
     }
 
@@ -27,6 +32,7 @@ public class DynamoDbUtility
         var attributeValues = new Dictionary<string, AttributeValue>();
         attributeValues.TryAdd(DynamoDbConstants.NameColName, new AttributeValue(book.Name));
         attributeValues.TryAdd(DynamoDbConstants.BookIdColName, new AttributeValue(book.Id));
+        attributeValues.TryAdd(DynamoDbConstants.ImageSourceColName, new AttributeValue(book.ImageSource));
         return attributeValues;
     }
 }
