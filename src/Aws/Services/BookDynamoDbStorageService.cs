@@ -60,6 +60,9 @@ public class BookDynamoDbStorageService : IBookDynamoDbStorageService
                 },
                 {
                     DynamoDbConstants.NameColName, new AttributeValue(book.Name)
+                },
+                {
+                    DynamoDbConstants.ImageSourceColName, new AttributeValue(book.ImageSource)
                 }
             }
         });
