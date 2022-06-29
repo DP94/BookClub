@@ -5,4 +5,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.KeyManagementService" Version="3.7.3.28" />
+      <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="7.0.0-preview.5.22303.8" />
+    </ItemGroup>
 </Project>

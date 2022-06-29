@@ -1,7 +1,7 @@
 ﻿using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
+using Common.Models;
 using Common.Util;
-using Core.Models;
 
 namespace Aws.Util;
 

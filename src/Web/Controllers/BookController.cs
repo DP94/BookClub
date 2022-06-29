@@ -1,5 +1,5 @@
 using Castle.Core.Internal;
-using Core.Models;
+using Common.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.Extensions;
