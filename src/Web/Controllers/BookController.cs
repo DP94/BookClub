@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Castle.Core.Internal;
 using Core.Models;
 using Core.Services;
@@ -72,5 +73,30 @@ public class BookController : ControllerBase
     {
         await this._bookService.DeleteBook(id);
         return NoContent();
+    }
+
+    [HttpPost("{id}/meme")]
+    [SwaggerOperation("Creates a new book meme")]
+    [SwaggerResponse(201, "Book meme created successfully", typeof(Book))]
+    public async Task<IActionResult> CreateBookMeme(string id)
+    {
+        var form = await Request.ReadFormAsync();
+        if (form.Files.Count == 0)
+        {
+            return BadRequest();
+        }
+
+        var file = form.Files.First();
+        if (file.FileName == null)
+        {
+            return BadRequest();
+        }
+        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        await using (var stream = new FileStream(fileName, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        return new CreatedResult("", null);
     }
 }
