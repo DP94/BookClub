@@ -20,7 +20,7 @@ public class BookControllerTest
     [Test]
     public void Get_Returns_Correct_Book_Details()
     {
-        var book = new Book("1", "TestBook");
+        var book = new Book("1", "TestBook", null, null, null);
         _bookController.Get();
     }
 }
