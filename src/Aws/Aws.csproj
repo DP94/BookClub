@@ -16,4 +16,322 @@
       <ProjectReference Include="..\Common\Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="DynamoDbLocal\DynamoDBLocal.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\annotations-13.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\antlr-runtime-4.5.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\Apache-HttpComponents-HttpClient-4.5.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\Apache-HttpComponents-HttpCore-4.4.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\aws-java-sdk-core-1.11.907.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\aws-java-sdk-dynamodb-1.11.907.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\aws-sdk-java-third-party-jackson-core-2.17.98.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\aws-sdk-java-third-party-jackson-core-2.17.98-javadoc.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsFlowJava-1.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-Annotations-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-Auth-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-AwsCore-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-AwsJsonProtocol-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-JsonUtils-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-MetricsSpi-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-Profiles-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-ProtocolCore-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-Regions-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-Core-Utils-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-DynamoDb-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-DynamoDb-Enhanced-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-HttpClient-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-HttpClient-ApacheClient-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\AwsJavaSdk-HttpClient-NettyNioClient-2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\cdi-core-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\cdi-servlet-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\commons-cli-1.2.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\commons-lang3-3.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\DynamoDBPartiQLShared-1.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\GoogleGuava-20.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\ion-element-0.2.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\ion-java-1.5.1.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\IonJava.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\IonSQLSandbox-5.x_dev.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jackson-annotations-2.12.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jackson-core-2.12.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jackson-databind-2.12.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jackson-dataformat-cbor-2.12.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jackson-datatype-jsr310-2.12.1.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\JakartaCommons-logging-1.2.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\javax-websocket-client-impl-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\javax-websocket-server-impl-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\javax.websocket-api-1.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-alpn-server-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-annotations-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-client-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-continuation-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-deploy-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-http-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-io-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-jaas-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-jaspi-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-jmx-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-jndi-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-nosql-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-plus-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-proxy-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-quickstart-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-rewrite-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-schemas-3.1.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-security-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-server-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-servlet-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-servlets-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-setuid-java-1.0.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-spring-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-util-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-webapp-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jetty-xml-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\JMESPathJava-1.12.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\joda-time-2.10.10.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\jsr305-3.0.2.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\kotlin-reflect-1.3.72.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\kotlin-stdlib-1.3.72.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\kotlin-stdlib-common-1.3.72.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\kotlin-stdlib-jdk7-1.3.72.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\kotlin-stdlib-jdk8-1.3.72.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\libsqlite4java-linux-aarch64.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\libsqlite4java-linux-amd64.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\libsqlite4java-linux-i386.so">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\libsqlite4java-osx.dylib">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\Log4j-api-2.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\Log4j-core-2.17.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\Log4j-slf4j-2.x.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\netty-all-4.1.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\netty-reactive-streams-2.0.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\netty-reactive-streams-http-2.0.0.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\partiql-ir-generator-runtime-0.3.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\reactive-streams-1.0.3.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\servlet-api-3.1.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\slf4j-api-1.7.30.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\slf4j-ext-1.7.10.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\sqlite4java.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\sqlite4java-win32-x64.dll">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\sqlite4java-win32-x86.dll">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\websocket-api-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\websocket-client-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\websocket-common-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\websocket-server-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\DynamoDBLocal_lib\websocket-servlet-9.4.18.v20190429.jar">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\LICENSE.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\shared-local-instance.db">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DynamoDbLocal\THIRD-PARTY-LICENSES.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

@@ -7,6 +7,8 @@ public static class DynamoDbConstants
     public const string BookIdColName = "bookId";
     public const string NameColName = "name";
     public const string ImageSourceColName = "imgSrc";
+    public const string AuthorColName = "author";
+    public const string SummarySourceColName = "summary";
     #endregion
 
     #region User

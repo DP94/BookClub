@@ -24,6 +24,16 @@ public class DynamoDbUtility
         {
             book.ImageSource = imgSrc.S;
         }
+        
+        if (items.TryGetValue(DynamoDbConstants.AuthorColName, out var author))
+        {
+            book.Author = author.S;
+        }
+        
+        if (items.TryGetValue(DynamoDbConstants.SummarySourceColName, out var summary))
+        {
+            book.Summary = summary.S;
+        }
         return book;
     }
 
@@ -33,6 +43,8 @@ public class DynamoDbUtility
         attributeValues.TryAdd(DynamoDbConstants.NameColName, new AttributeValue(book.Name));
         attributeValues.TryAdd(DynamoDbConstants.BookIdColName, new AttributeValue(book.Id));
         attributeValues.TryAdd(DynamoDbConstants.ImageSourceColName, new AttributeValue(book.ImageSource));
+        attributeValues.TryAdd(DynamoDbConstants.AuthorColName, new AttributeValue(book.Author));
+        attributeValues.TryAdd(DynamoDbConstants.SummarySourceColName, new AttributeValue(book.Summary));
         return attributeValues;
     }
 }

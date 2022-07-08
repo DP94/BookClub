@@ -2,6 +2,8 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
+using Amazon.Util.Internal.PlatformServices;
+using Aws.DynamoDbLocal;
 using Aws.Services;
 using Core.Services;
 
@@ -14,7 +16,7 @@ public class Startup
         Configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; }
+    private IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container
     public void ConfigureServices(IServiceCollection services)
@@ -26,8 +28,17 @@ public class Startup
         {
             Region = RegionEndpoint.EUWest2
         };
+
+        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        if (env == "LOCAL")
+        {
+            new LocalDynamoDbSetup().SetupDynamoDb();
+            awsOptions.Credentials = new BasicAWSCredentials("x", "x");
+            awsOptions.DefaultClientConfig.ServiceURL = "http://localhost:8000";
+        }
         services.AddDefaultAWSOptions(awsOptions);
-        services.AddAWSService<IAmazonDynamoDB>();
+        
+        services.AddAWSService<IAmazonDynamoDB>(awsOptions);
         services.AddSwaggerGen(options =>
         {
             options.EnableAnnotations();
