@@ -8,28 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bac47f68-efe2-4623-8d65-4c609ee8c27f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Aws/Services/IUserDynamoDbStorageService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Aws/Services/UserDynamoDbStorageService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Common/Models/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Core/Services/IUserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Core/Services/UserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/Controllers/UserController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Aws.Test/Service/UserDynamoDbStorageServiceTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Core.Test/UserServiceTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Web.Test/UserControllerTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BookClub/.idea/aws.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BookClub/.idea/aws.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BookClub/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BookClub/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Aws/Services/BookDynamoDbStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Services/BookDynamoDbStorageService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Aws/Services/IBookDynamoDbStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Services/IBookDynamoDbStorageService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Aws/Util/DynamoDbUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Util/DynamoDbUtility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Aws/Aws.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Aws.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Aws/Services/UserDynamoDbStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aws/Services/UserDynamoDbStorageService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Common/Common.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Common/Common.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Common/Models/Book.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Common/Models/Book.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Common/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Common/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Common/Util/DynamoDbConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Common/Util/DynamoDbConstants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Services/BookService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Services/BookService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Services/IBookService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Services/IBookService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/Controllers/BookController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/Controllers/BookController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Core.Test/Core.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/test/Core.Test/Core.Test.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Web.Test/BookControllerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Web.Test/BookControllerTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Services/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/Web.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/Web.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Aws.Test/Service/UserDynamoDbStorageServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Aws.Test/Service/UserDynamoDbStorageServiceTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Core.Test/UserServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Core.Test/UserServiceTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,18 +53,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.customizations",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Web: BookClub">
     <configuration name="Web: BookClub" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Web/Web.csproj" />
@@ -104,6 +92,7 @@
       <updated>1656526045088</updated>
       <workItem from="1656526055141" duration="92000" />
       <workItem from="1656526162290" duration="9882000" />
+      <workItem from="1657311795286" duration="2315000" />
     </task>
     <servers />
   </component>

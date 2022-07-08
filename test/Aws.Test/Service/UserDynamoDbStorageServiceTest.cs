@@ -17,7 +17,7 @@ public class UserDynamoDbStorageServiceTest
     }
     
     [Test]
-    public async Task CreateUser_Should_Create_And_Return_User_but_Exclude_Password()
+    public async Task CreateUser_Should_Create_And_Return_User()
     {
         var userToCreate = new User()
         {
@@ -27,7 +27,6 @@ public class UserDynamoDbStorageServiceTest
         };
         var createdUser = await _userDynamoDbStorageService.CreateUser(userToCreate);
         Assert.IsNotEmpty(createdUser.Id);
-        Assert.IsNull(createdUser.Password);
         Assert.AreEqual(userToCreate.Username, createdUser.Username);
         Assert.AreEqual(userToCreate.Email, createdUser.Email);
     }

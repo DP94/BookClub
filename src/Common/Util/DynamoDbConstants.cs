@@ -14,6 +14,7 @@ public static class DynamoDbConstants
     public const string UserIdColName = "userId";
     public const string UsernameColName = "username";
     public const string PasswordColName = "password";
+    public const string SaltColName = "salt";
     public const string EmailColName = "email";
     #endregion
     

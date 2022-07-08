@@ -24,7 +24,8 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
                 { DynamoDbConstants.UserIdColName, new AttributeValue(user.Id) },
                 { DynamoDbConstants.UsernameColName, new AttributeValue(user.Username) },
                 { DynamoDbConstants.EmailColName, new AttributeValue(user.Email) },
-                { DynamoDbConstants.PasswordColName, new AttributeValue(user.Password) }
+                { DynamoDbConstants.PasswordColName, new AttributeValue(user.Password) },
+                { DynamoDbConstants.SaltColName, new AttributeValue(user.Salt) },
             }
         });
         return user;
