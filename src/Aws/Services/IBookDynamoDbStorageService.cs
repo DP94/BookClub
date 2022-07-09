@@ -1,4 +1,5 @@
-﻿using Core.Models;
+﻿using Common.Models;
+using Core.Models;
 
 namespace Aws.Services;
 

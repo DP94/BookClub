@@ -1,4 +1,4 @@
-﻿namespace Core.Models;
+﻿namespace Common.Models;
 
 public class Book
 {

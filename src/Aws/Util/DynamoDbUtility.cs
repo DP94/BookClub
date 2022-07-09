@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
+using Common.Models;
 using Common.Util;
 using Core.Models;
 
@@ -68,7 +69,7 @@ public class DynamoDbUtility
 
         if (items.TryGetValue(DynamoDbConstants.MemeImageKeyColName, out var key))
         {
-            meme.S3URL = $"https://bookclubmemes.s3.eu-west-2.amazonaws.com/{key.S}";
+            meme.S3URL = $"https://{Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME)}.s3.eu-west-2.amazonaws.com/{key.S}";
         }
         return meme;
     }
