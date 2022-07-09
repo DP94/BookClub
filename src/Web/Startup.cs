@@ -2,6 +2,7 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
+using Amazon.S3;
 using Amazon.Util.Internal.PlatformServices;
 using Aws.DynamoDbLocal;
 using Aws.Services;
@@ -19,26 +20,31 @@ public class Startup
     private IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container
-    public void ConfigureServices(IServiceCollection services)
+    public async void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        services.AddSingleton<IBookService, BookService>();
-        services.AddSingleton<IBookDynamoDbStorageService, BookDynamoDbStorageService>();
         var awsOptions = new AWSOptions()
         {
             Region = RegionEndpoint.EUWest2
         };
 
         var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        if (env == "LOCAL")
-        {
-            new LocalDynamoDbSetup().SetupDynamoDb();
-            awsOptions.Credentials = new BasicAWSCredentials("x", "x");
-            awsOptions.DefaultClientConfig.ServiceURL = "http://localhost:8000";
-        }
+        // if (env == "LOCAL")
+        // {
+        //     new LocalDynamoDbSetup().SetupDynamoDb();
+        //     awsOptions.Credentials = new BasicAWSCredentials("x", "x");
+        //     awsOptions.DefaultClientConfig.ServiceURL = "http://localhost:8000";
+        // }
         services.AddDefaultAWSOptions(awsOptions);
-        
         services.AddAWSService<IAmazonDynamoDB>(awsOptions);
+        services.AddAWSService<IAmazonS3>();
+        
+        services.AddSingleton<IBookDynamoDbStorageService, BookDynamoDbStorageService>();
+        services.AddSingleton<IMemeDynamoDbStorageService, MemeDynamoDbStorageService>();
+        services.AddSingleton<IBookService, BookService>();
+        services.AddSingleton<IMemeService, MemeService>();
+
+
         services.AddSwaggerGen(options =>
         {
             options.EnableAnnotations();

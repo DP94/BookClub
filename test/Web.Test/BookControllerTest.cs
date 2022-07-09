@@ -14,7 +14,7 @@ public class BookControllerTest
     [SetUp]
     public void Setup()
     {
-        _bookController = new BookController(A.Fake<IBookService>(), null);
+        _bookController = new BookController(A.Fake<IBookService>(), A.Fake<IMemeService>(), null);
     }
     
     [Test]
