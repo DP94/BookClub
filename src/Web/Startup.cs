@@ -29,12 +29,12 @@ public class Startup
         };
 
         var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        // if (env == "LOCAL")
-        // {
-        //     new LocalDynamoDbSetup().SetupDynamoDb();
-        //     awsOptions.Credentials = new BasicAWSCredentials("x", "x");
-        //     awsOptions.DefaultClientConfig.ServiceURL = "http://localhost:8000";
-        // }
+        if (env == "LOCAL")
+        {
+            new LocalDynamoDbSetup().SetupDynamoDb();
+            awsOptions.Credentials = new BasicAWSCredentials("x", "x");
+            awsOptions.DefaultClientConfig.ServiceURL = "http://localhost:8000";
+        }
         services.AddDefaultAWSOptions(awsOptions);
         services.AddAWSService<IAmazonDynamoDB>(awsOptions);
         services.AddAWSService<IAmazonS3>();

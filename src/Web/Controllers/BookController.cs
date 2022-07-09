@@ -80,6 +80,7 @@ public class BookController : ControllerBase
     [HttpPost("{id}/meme")]
     [SwaggerOperation("Creates a new book meme")]
     [SwaggerResponse(201, "Book meme created successfully", typeof(Meme))]
+    [SwaggerResponse(400, "No files uploaded or the file name is null")]
     public async Task<IActionResult> CreateBookMeme(string id)
     {
         var form = await Request.ReadFormAsync();
