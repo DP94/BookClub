@@ -4,7 +4,8 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "LOCAL"
+        "ASPNETCORE_ENVIRONMENT": "LOCAL",
+        "S3_BUCKET_NAME": "bookclubmemes"
       },
       "applicationUrl": "https://localhost:60682;http://localhost:60683"
     },

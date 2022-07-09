@@ -1,4 +1,6 @@
+using System.Net.Http.Headers;
 using Castle.Core.Internal;
+using Common.Models;
 using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Cors;
@@ -12,16 +14,17 @@ namespace Web.Controllers;
 [EnableCors]
 public class BookController : ControllerBase
 {
-
     private readonly IBookService _bookService;
+    private readonly IMemeService _memeService;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    
-    public BookController(IBookService service, IHttpContextAccessor httpContextAccessor)
+
+    public BookController(IBookService service, IMemeService memeService, IHttpContextAccessor httpContextAccessor)
     {
         this._bookService = service;
+        this._memeService = memeService;
         this._httpContextAccessor = httpContextAccessor;
     }
-    
+
     [HttpGet]
     [SwaggerResponse(200, "Success", typeof(Book))]
     [SwaggerOperation("Gets all books")]
@@ -30,7 +33,7 @@ public class BookController : ControllerBase
         var books = await this._bookService.GetBooks();
         return Ok(books);
     }
-    
+
     [HttpGet("{id}")]
     [SwaggerResponse(200, "Success", typeof(Book))]
     [SwaggerOperation("Gets a book by its ID")]
@@ -39,11 +42,11 @@ public class BookController : ControllerBase
         var book = await this._bookService.GetBookById(id);
         return Ok(book);
     }
-    
+
     [HttpPost]
     [SwaggerOperation("Creates a new book")]
     [SwaggerResponse(201, "Book created successfully", typeof(Book))]
-    public async Task<ActionResult> Post([FromBody][SwaggerParameter("The book to create")] Book book)
+    public async Task<ActionResult> Post([FromBody] [SwaggerParameter("The book to create")] Book book)
     {
         if (book.Name.IsNullOrEmpty())
         {
@@ -55,16 +58,16 @@ public class BookController : ControllerBase
         return new CreatedResult($"{this._httpContextAccessor.HttpContext?.Request.GetEncodedUrl()}/{createdBook.Id}",
             createdBook);
     }
-    
+
     [SwaggerOperation("Updates a book")]
     [SwaggerResponse(200, "Book updated", typeof(Book))]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put([SwaggerParameter("ID of the book to update")] string id, [FromBody]Book book)
+    public async Task<IActionResult> Put([SwaggerParameter("ID of the book to update")] string id, [FromBody] Book book)
     {
         var response = await this._bookService.UpdateBook(book);
         return Ok(response);
     }
-    
+
     [HttpDelete("{id}")]
     [SwaggerResponse(204, "Book deleted")]
     [SwaggerOperation("Deletes a book")]
@@ -72,5 +75,39 @@ public class BookController : ControllerBase
     {
         await this._bookService.DeleteBook(id);
         return NoContent();
+    }
+
+    [HttpPost("{id}/meme")]
+    [SwaggerOperation("Creates a new book meme")]
+    [SwaggerResponse(201, "Book meme created successfully", typeof(Meme))]
+    [SwaggerResponse(400, "No files uploaded or the file name is null")]
+    public async Task<IActionResult> CreateBookMeme(string id)
+    {
+        var form = await Request.ReadFormAsync();
+        if (form.Files.Count == 0)
+        {
+            return BadRequest();
+        }
+
+        var file = form.Files.First();
+        if (file.FileName == null)
+        {
+            return BadRequest();
+        }
+        
+        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        var meme = new Meme
+        {
+            Id = Guid.NewGuid().ToString(),
+            BookId = id,
+            ImageName = fileName
+        };
+        var memoryStream = new MemoryStream();
+        await file.OpenReadStream().CopyToAsync(memoryStream);
+        meme.Image = memoryStream.ToArray();
+        
+        await this._memeService.Create(meme);
+
+        return new CreatedResult(meme.Id, meme);
     }
 }

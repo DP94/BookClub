@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
+using Common.Models;
 using Common.Util;
 using Core.Models;
 
@@ -46,5 +47,30 @@ public class DynamoDbUtility
         attributeValues.TryAdd(DynamoDbConstants.AuthorColName, new AttributeValue(book.Author));
         attributeValues.TryAdd(DynamoDbConstants.SummarySourceColName, new AttributeValue(book.Summary));
         return attributeValues;
+    }
+    
+    public static Meme GetMemeFromAttributes(Dictionary<string, AttributeValue> items)
+    {
+        var meme = new Meme();
+        if (items.TryGetValue(DynamoDbConstants.MemeIdColName, out var id))
+        {
+            meme.Id = id.S;
+        }
+
+        if (items.TryGetValue(DynamoDbConstants.BookIdColName, out var bookId))
+        {
+            meme.BookId = bookId.S;
+        }
+        
+        if (items.TryGetValue(DynamoDbConstants.MemeImageNameColName, out var imageName))
+        {
+            meme.ImageName = imageName.S;
+        }
+
+        if (items.TryGetValue(DynamoDbConstants.MemeImageKeyColName, out var key))
+        {
+            meme.S3URL = $"https://{Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME)}.s3.eu-west-2.amazonaws.com/{key.S}";
+        }
+        return meme;
     }
 }

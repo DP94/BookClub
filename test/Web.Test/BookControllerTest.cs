@@ -1,4 +1,5 @@
-﻿using Core.Models;
+﻿using Common.Models;
+using Core.Models;
 using Core.Services;
 using FakeItEasy;
 using NUnit.Framework;
@@ -14,7 +15,7 @@ public class BookControllerTest
     [SetUp]
     public void Setup()
     {
-        _bookController = new BookController(A.Fake<IBookService>(), null);
+        _bookController = new BookController(A.Fake<IBookService>(), A.Fake<IMemeService>(), null);
     }
     
     [Test]
