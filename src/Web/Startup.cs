@@ -23,7 +23,9 @@ public class Startup
     {
         services.AddControllers();
         services.AddSingleton<IBookService, BookService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddSingleton<IBookDynamoDbStorageService, BookDynamoDbStorageService>();
+        services.AddSingleton<IUserDynamoDbStorageService, UserDynamoDbStorageService>();
         var awsOptions = new AWSOptions()
         {
             Region = RegionEndpoint.EUWest2

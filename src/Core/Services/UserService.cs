@@ -21,24 +21,27 @@ public class UserService : IUserService
             Username = user.Username,
             Email = user.Email,
         };
-        CreateHashedAndSaltedPassword(user);
-        return _userDynamoDbStorageService.CreateUser(user);
+        CreateHashedAndSaltedPassword(createdUser, user.Password);
+        return _userDynamoDbStorageService.CreateUser(createdUser);
     }
     
-    private void CreateHashedAndSaltedPassword(User user)
+    private void CreateHashedAndSaltedPassword(User createdUser, string password)
     {
         var salt = new byte[128 / 8];
-        user.Salt = Convert.ToBase64String(new byte[128 / 8]);
         using var rngCsp = RandomNumberGenerator.Create();
         rngCsp.GetNonZeroBytes(salt);
-        var password = user.Password;
-        user.Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+        createdUser.Password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: password ?? throw new InvalidOperationException(),
             salt: salt,
             prf: KeyDerivationPrf.HMACSHA256,
             iterationCount: 100000,
             numBytesRequested: 256/8
         ));
+        createdUser.Salt = Convert.ToBase64String(salt);
     }
-
+    
+    public Task<User?> GetUserById(string userId)
+    {
+        return _userDynamoDbStorageService.GetUserById(userId);
+    }
 }

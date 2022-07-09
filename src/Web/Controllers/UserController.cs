@@ -23,10 +23,24 @@ public class UserController : ControllerBase
     [HttpPost]
     [SwaggerOperation("Creates a new user")]
     [SwaggerResponse(201, "User created successfully", typeof(User))]
-    public async Task<IActionResult> Create(User userToCreate)
+    public async Task<IActionResult> Create([FromBody][SwaggerParameter("The user to create")] User userToCreate)
     {
         var createdUser = await this._userService.CreateUser(userToCreate);
         var createdUrl = $"{this._contextAccessor.HttpContext?.Request.GetEncodedUrl()}/Get/{createdUser.Id}";
         return new CreatedResult(createdUrl, createdUser);
+    }
+
+    [HttpGet("{id}")]
+    [SwaggerOperation("Gets a User by their ID")]
+    [SwaggerResponse(200, "Success")]
+    [SwaggerResponse(404, "User not found")]
+    public async Task<IActionResult> Get(string id)
+    {
+        var user = await this._userService.GetUserById(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return Ok(user);
     }
 }
