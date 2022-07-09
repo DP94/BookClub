@@ -46,7 +46,7 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
     public async Task<Meme> Create(Meme meme)
     {
         //Save file in S3 first to get key
-        var s3Key = Guid.NewGuid().ToString();
+        var s3Key = $"{Guid.NewGuid().ToString()}{meme.ImageName}";
         var util = new TransferUtility(this._s3Client);
         await util.UploadAsync(new MemoryStream(meme.Image), BucketName, s3Key);
 
@@ -70,7 +70,7 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
                 }
             }
         });
-        meme.S3URL = $"https://${BucketName}.s3.eu-west-2.amazonaws.com/{s3Key}";
+        meme.S3URL = $"https://{BucketName}.s3.eu-west-2.amazonaws.com/{s3Key}";
         return meme;
     }
 }
