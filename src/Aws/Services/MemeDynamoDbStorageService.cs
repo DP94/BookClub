@@ -1,8 +1,7 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime.SharedInterfaces;
 using Amazon.S3;
-using Amazon.S3.Transfer;
+using Amazon.S3.Model;
 using Aws.Util;
 using Common.Util;
 using Core.Models;
@@ -47,8 +46,12 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
     {
         //Save file in S3 first to get key
         var s3Key = $"{Guid.NewGuid().ToString()}{meme.ImageName}";
-        var util = new TransferUtility(this._s3Client);
-        await util.UploadAsync(new MemoryStream(meme.Image), BucketName, s3Key);
+        await this._s3Client.PutObjectAsync(new PutObjectRequest
+        {
+            BucketName = this.BucketName,
+            Key = s3Key,
+            InputStream = new MemoryStream(meme.Image)
+        });
 
         //Persist to DB
         await this._dynamoDb.PutItemAsync(new PutItemRequest
