@@ -22,6 +22,7 @@ public class LocalDynamoDbSetup : IDisposable
         this._process = this.StartDynamoProcess();
         var client = this.GetClient();
         await this.CreateBookTable(client);
+        await this.CreateMemeTable(client);
         await this.CreateUserTable(client);
     }
 
@@ -50,6 +51,41 @@ public class LocalDynamoDbSetup : IDisposable
                 new(DynamoDbConstants.BookIdColName, ScalarAttributeType.S)
             },
             new ProvisionedThroughput(100, 100)));
+    }
+
+    private async Task CreateMemeTable(IAmazonDynamoDB client)
+    {
+        await client.CreateTableAsync(new CreateTableRequest
+        {
+            TableName = DynamoDbConstants.MemeTableName,
+            KeySchema = new List<KeySchemaElement> { new(DynamoDbConstants.MemeIdColName, KeyType.HASH) },
+            AttributeDefinitions = new List<AttributeDefinition>
+            {
+                new(DynamoDbConstants.MemeIdColName, ScalarAttributeType.S),
+                new(DynamoDbConstants.BookIdColName, ScalarAttributeType.S)
+            },
+            GlobalSecondaryIndexes = new List<GlobalSecondaryIndex>
+            {
+                new()
+                {
+                    IndexName = DynamoDbConstants.BookIdIndexName,
+                    KeySchema = new List<KeySchemaElement>
+                    {
+                        new()
+                        {
+                            AttributeName = DynamoDbConstants.BookIdColName,
+                            KeyType = KeyType.HASH
+                        }
+                    },
+                    ProvisionedThroughput = new ProvisionedThroughput(100, 100),
+                    Projection = new Projection
+                    {
+                        ProjectionType = ProjectionType.KEYS_ONLY
+                    }
+                }
+            },
+            ProvisionedThroughput = new ProvisionedThroughput(100, 100)
+        });
     }
     
     private async Task CreateUserTable(IAmazonDynamoDB client)

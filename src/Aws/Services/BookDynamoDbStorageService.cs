@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Amazon.DynamoDBv2;
+﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Aws.Util;
 using Common.Models;
