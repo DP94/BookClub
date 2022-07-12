@@ -43,4 +43,13 @@ public class UserController : ControllerBase
         }
         return Ok(user);
     }
+    
+    [HttpGet]
+    [SwaggerOperation("Gets a list of all Users")]
+    [SwaggerResponse(200, "Success")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var user = await this._userService.GetAllUsers();
+        return Ok(user);
+    }
 }

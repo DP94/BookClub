@@ -58,4 +58,22 @@ public class UserControllerTest
         var result = await _userController.Get(Guid.NewGuid().ToString());
         Assert.IsInstanceOf<NotFoundResult>(result);
     }
+    
+    [Test]
+    public async Task GetAll_Returns_Ok_Result()
+    {
+        var users = new List<User>
+        {
+            new()
+        };
+        var fakeUserService = A.Fake<IUserService>();
+        A.CallTo(() => fakeUserService.GetAllUsers()).Returns(users);
+        _userController = new UserController(fakeUserService, A.Fake<IHttpContextAccessor>());
+        var result = await _userController.GetAllUsers();
+        Assert.IsInstanceOf<OkObjectResult>(result);
+        var getResult = result as OkObjectResult;
+        var retrievedUsers = getResult.Value as List<User>;
+        Assert.AreEqual(users, retrievedUsers);
+        
+    }
 }

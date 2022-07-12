@@ -1,7 +1,7 @@
-﻿using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
+﻿using Amazon.DynamoDBv2.Model;
 using Common.Models;
 using Common.Util;
+using Core.Models;
 
 namespace Aws.Util;
 
@@ -35,6 +35,24 @@ public class DynamoDbUtility
             book.Summary = summary.S;
         }
         return book;
+    }
+    
+    public static User GetUserFromAttributes(Dictionary<string, AttributeValue> items)
+    {
+        var user = new User();
+        if (items.TryGetValue(DynamoDbConstants.UserIdColName, out var id))
+        {
+            user.Id = id.S;
+        }
+        if (items.TryGetValue(DynamoDbConstants.UsernameColName, out var username))
+        {
+            user.Username = username.S;
+        }
+        if (items.TryGetValue(DynamoDbConstants.EmailColName, out var email))
+        {
+            user.Email = email.S;
+        }
+        return user;
     }
 
     public static Dictionary<string, AttributeValue> GetAttributesFromBook(Book book)

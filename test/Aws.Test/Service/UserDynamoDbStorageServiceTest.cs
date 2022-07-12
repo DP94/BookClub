@@ -30,19 +30,19 @@ public class UserDynamoDbStorageServiceTest
         Assert.AreEqual(userToCreate.Username, createdUser.Username);
         Assert.AreEqual(userToCreate.Email, createdUser.Email);
     }
-
-    private User GetUser()
-    {
-        return new User
-        {
-            Id = Guid.NewGuid().ToString(),
-            Username = "Test",
-            Password = "Password123",
-            Email = "test@example.com",
-            Salt = "salty"
-        };
-    }
     
+    [Test]
+    public async Task GetUser_Should_Return_Users()
+    {
+        var userToCreate = GetUser();
+        await _userDynamoDbStorageService.CreateUser(userToCreate);
+        var users = await _userDynamoDbStorageService.GetAllUsers();
+        var user = users.First();
+        Assert.IsNotEmpty(users);
+        Assert.AreEqual(userToCreate.Username, user.Username);
+        Assert.AreEqual(userToCreate.Email, user.Email);
+    }
+
     [Test]
     public async Task GetUserById_Should_Return_User_If_Existing_User_Matches_Id()
     {
@@ -66,5 +66,17 @@ public class UserDynamoDbStorageServiceTest
     public void TearDown()
     {
         _dynamoDb.KillProcess();
+    }
+    
+    private User GetUser()
+    {
+        return new User
+        {
+            Id = Guid.NewGuid().ToString(),
+            Username = "Test",
+            Password = "Password123",
+            Email = "test@example.com",
+            Salt = "salty"
+        };
     }
 }

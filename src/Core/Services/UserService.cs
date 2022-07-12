@@ -44,4 +44,9 @@ public class UserService : IUserService
     {
         return _userDynamoDbStorageService.GetUserById(userId);
     }
+
+    public Task<List<User>> GetAllUsers()
+    {
+        return this._userDynamoDbStorageService.GetAllUsers();
+    }
 }

@@ -1,7 +1,7 @@
 using System.Net.Http.Headers;
 using Castle.Core.Internal;
 using Common.Models;
-using Common.Models;
+using Core.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.Extensions;

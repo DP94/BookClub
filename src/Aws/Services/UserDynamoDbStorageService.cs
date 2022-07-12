@@ -1,6 +1,6 @@
-﻿using System.Text;
-using Amazon.DynamoDBv2;
+﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Aws.Util;
 using Common.Models;
 using Common.Util;
 
@@ -53,6 +53,12 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
         return items == null
             ? null
             : GetUserFromQueryResult(items);
+    }
+
+    public async Task<List<User>> GetAllUsers()
+    {
+        var result = await this._dynamoDb.ScanAsync(new ScanRequest(DynamoDbConstants.UserTableName));
+        return result.Items.Select(DynamoDbUtility.GetUserFromAttributes).ToList();
     }
 
     private User GetUserFromQueryResult(Dictionary<string, AttributeValue> resultItems)
