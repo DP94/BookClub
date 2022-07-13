@@ -10,12 +10,12 @@ public class User
     [Required]
     public string Email { get; set; }
     [Required]
-    public string? Password { get; set; }
-    public string Salt { get; set; } 
+
+    public List<Book> BooksRead { get; set; }
 
     public User()
     {
-        
+        BooksRead = new List<Book>();
     }
     
 }

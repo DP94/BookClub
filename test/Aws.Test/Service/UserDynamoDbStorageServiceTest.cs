@@ -1,9 +1,6 @@
-﻿using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
-using Aws.DynamoDbLocal;
+﻿using Aws.DynamoDbLocal;
 using Aws.Services;
 using Common.Models;
-using FakeItEasy;
 using NUnit.Framework;
 
 namespace Aws.Test.Service;
@@ -68,9 +65,9 @@ public class UserDynamoDbStorageServiceTest
         _dynamoDb.KillProcess();
     }
     
-    private User GetUser()
+    private InternalUser GetUser()
     {
-        return new User
+        return new InternalUser
         {
             Id = Guid.NewGuid().ToString(),
             Username = "Test",

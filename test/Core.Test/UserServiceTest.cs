@@ -19,7 +19,7 @@ public class UserServiceTest
     [Test]
     public async Task Create_Should_Create_And_Return_User_With_Hashed_Password_And_Salt()
     {
-        var userToCreate = new User { Password = "Test123"};
+        var userToCreate = new InternalUser { Password = "Test123"};
         var createdUser = await _userService.CreateUser(userToCreate);
         Assert.IsNotNull(createdUser);
         Assert.IsNotEmpty(createdUser.Salt);
@@ -31,7 +31,7 @@ public class UserServiceTest
     public async Task GetUserById_Should_Return_Retrieved_User_When_User_Exists()
     {
         var fakeUserId = Guid.NewGuid().ToString();
-        var fakeUser = new User
+        var fakeUser = new InternalUser
         {
             Id = fakeUserId,
         };
@@ -46,7 +46,7 @@ public class UserServiceTest
     public async Task GetUserById_Should_Return_Null_If_User_Not_Found()
     {
         var fakeDynamoDbStorageService = A.Fake<IUserDynamoDbStorageService>();
-        A.CallTo(() => fakeDynamoDbStorageService.GetUserById(A<string>.Ignored)).Returns((User?) null);
+        A.CallTo(() => fakeDynamoDbStorageService.GetUserById(A<string>.Ignored)).Returns((InternalUser?) null);
         _userService = new UserService(fakeDynamoDbStorageService);
         var retrievedUser = await _userService.GetUserById(Guid.NewGuid().ToString());
         Assert.Null(retrievedUser);

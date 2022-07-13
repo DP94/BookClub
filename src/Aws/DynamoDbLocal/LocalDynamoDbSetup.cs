@@ -90,14 +90,37 @@ public class LocalDynamoDbSetup : IDisposable
     
     private async Task CreateUserTable(IAmazonDynamoDB client)
     {
-        await client.CreateTableAsync(new CreateTableRequest(
-            DynamoDbConstants.UserTableName,
-            new List<KeySchemaElement> { new(DynamoDbConstants.UserIdColName, KeyType.HASH) },
-            new List<AttributeDefinition>
+        await client.CreateTableAsync(new CreateTableRequest
+        {
+            TableName = DynamoDbConstants.UserTableName,
+            KeySchema = new List<KeySchemaElement> { new(DynamoDbConstants.UserIdColName, KeyType.HASH) },
+            AttributeDefinitions = new List<AttributeDefinition>
             {
-                new(DynamoDbConstants.UserIdColName, ScalarAttributeType.S)
+                new(DynamoDbConstants.UserIdColName, ScalarAttributeType.S),
+                new(DynamoDbConstants.UsernameColName, ScalarAttributeType.S)
             },
-            new ProvisionedThroughput(100, 100)));
+            GlobalSecondaryIndexes = new List<GlobalSecondaryIndex>
+            {
+                new()
+                {
+                    IndexName = DynamoDbConstants.UsernameIndexColumn,
+                    KeySchema = new List<KeySchemaElement>
+                    {
+                        new()
+                        {
+                            AttributeName = DynamoDbConstants.UsernameColName,
+                            KeyType = KeyType.HASH
+                        }
+                    },
+                    ProvisionedThroughput = new ProvisionedThroughput(100, 100),
+                    Projection = new Projection
+                    {
+                        ProjectionType = ProjectionType.ALL
+                    }
+                }
+            },
+            ProvisionedThroughput = new ProvisionedThroughput(100, 100)
+        });
     }
     
     private Process StartDynamoProcess()

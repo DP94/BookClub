@@ -4,7 +4,10 @@ namespace Aws.Services;
 
 public interface IUserDynamoDbStorageService
 {
-    Task<User> CreateUser(User user);
-    Task<User?> GetUserById(string ignored);
-    Task<List<User>> GetAllUsers();
+    Task<InternalUser> CreateUser(InternalUser user);
+    Task<InternalUser?> GetUserById(string ignored);
+    Task<List<InternalUser>> GetAllUsers();
+    Task<InternalUser> UpdateUser(InternalUser user);
+
+    Task<InternalUser> GetUserByUsername(string username);
 }

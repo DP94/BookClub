@@ -23,11 +23,11 @@ public class UserController : ControllerBase
     [HttpPost]
     [SwaggerOperation("Creates a new user")]
     [SwaggerResponse(201, "User created successfully", typeof(User))]
-    public async Task<IActionResult> Create([FromBody][SwaggerParameter("The user to create")] User userToCreate)
+    public async Task<IActionResult> Create([FromBody][SwaggerParameter("The user to create")] InternalUser userToCreate)
     {
         var createdUser = await this._userService.CreateUser(userToCreate);
         var createdUrl = $"{this._contextAccessor.HttpContext?.Request.GetEncodedUrl()}/Get/{createdUser.Id}";
-        return new CreatedResult(createdUrl, createdUser);
+        return new CreatedResult(createdUrl, this.InternalUserToUser(userToCreate));
     }
 
     [HttpGet("{id}")]
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(user);
+        return Ok(this.InternalUserToUser(user));
     }
     
     [HttpGet]
@@ -50,6 +50,45 @@ public class UserController : ControllerBase
     public async Task<IActionResult> GetAllUsers()
     {
         var user = await this._userService.GetAllUsers();
-        return Ok(user);
+        return Ok(user.Select(this.InternalUserToUser).ToList());
+    }
+
+    [HttpPut("{id}")]
+    [SwaggerOperation("Marks a book as read for this user")]
+    [SwaggerResponse(200, "Success")]
+    public async Task<IActionResult> UpdateUser(string id, User user)
+    {
+        var latestUser = await this._userService.GetUserById(id);
+        if (latestUser == null)
+        {
+            return new NotFoundResult();
+        }
+
+        user.Id = id;
+        await this._userService.UpdateUser(UserToInternalUser(user));
+        return Ok();
+    }
+
+    private InternalUser UserToInternalUser(User user)
+    {
+        return new InternalUser
+        {
+            Email = user.Email,
+            Id = user.Id,
+            Username = user.Username,
+            BooksRead = user.BooksRead
+        };
+    }
+    
+    //Purposefully exclude passwords
+    private User InternalUserToUser(InternalUser user)
+    {
+        return new User
+        {
+            Email = user.Email,
+            Id = user.Id,
+            Username = user.Username,
+            BooksRead = user.BooksRead
+        };
     }
 }
