@@ -1,7 +1,12 @@
-﻿using Common.Models;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Common.Models;
 using Core.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Web.Controllers;
 
@@ -10,11 +15,13 @@ namespace Web.Controllers;
 public class AuthenticationController: ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly IConfiguration _config;
     
     
-    public AuthenticationController(IUserService userService)
+    public AuthenticationController(IUserService userService, IConfiguration config)
     {
         _userService = userService;
+        _config = config;
     }
     
     [HttpPost]
@@ -34,6 +41,21 @@ public class AuthenticationController: ControllerBase
                 return Unauthorized();
             }
 
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new Claim("UserId", dbUser.Id),
+            };
+            
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._config["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(this._config["Jwt:Issuer"], this._config["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(double.Parse(this._config["Jwt:ExpireTime"])),
+                signingCredentials: signIn);
+
+            Response.Headers.Authorization = $"Bearer {new JwtSecurityTokenHandler().WriteToken(token)}";
             return Ok(dbUser);
         }
         catch (Exception)

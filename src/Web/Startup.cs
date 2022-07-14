@@ -1,12 +1,15 @@
+using System.Net.Http.Headers;
+using System.Text;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Amazon.S3;
-using Amazon.Util.Internal.PlatformServices;
 using Aws.DynamoDbLocal;
 using Aws.Services;
 using Core.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BookClub;
 
@@ -53,7 +56,23 @@ public class Startup
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(
-                policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+                policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("Authorization");
+                });
+        });
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = Configuration["Jwt:Issuer"],
+                ValidAudience = Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            };
         });
     }
 
@@ -74,6 +93,7 @@ public class Startup
             context.Response.Headers["Access-Control-Allow-Origin"] = "*";
             return next.Invoke();
         });
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>

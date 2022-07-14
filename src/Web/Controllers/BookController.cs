@@ -3,6 +3,7 @@ using Castle.Core.Internal;
 using Common.Models;
 using Core.Models;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Web.Controllers;
 
+[Authorize]
 [Route("v1/[controller]")]
 [EnableCors]
 public class BookController : ControllerBase
