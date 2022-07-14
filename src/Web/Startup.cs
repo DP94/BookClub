@@ -20,7 +20,7 @@ public class Startup
     private IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container
-    public async void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
         var awsOptions = new AWSOptions()
@@ -43,8 +43,8 @@ public class Startup
         services.AddSingleton<IMemeDynamoDbStorageService, MemeDynamoDbStorageService>();
         services.AddSingleton<IBookService, BookService>();
         services.AddSingleton<IMemeService, MemeService>();
-
-
+        services.AddSingleton<IUserDynamoDbStorageService, UserDynamoDbStorageService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddSwaggerGen(options =>
         {
             options.EnableAnnotations();

@@ -11,4 +11,9 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
         <PackageReference Include="NUnit" Version="3.13.3" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Common\Common.csproj" />
+      <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    </ItemGroup>
 </Project>

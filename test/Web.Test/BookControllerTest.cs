@@ -1,5 +1,5 @@
 ﻿using Common.Models;
-using Core.Models;
+using Common.Models;
 using Core.Services;
 using FakeItEasy;
 using NUnit.Framework;

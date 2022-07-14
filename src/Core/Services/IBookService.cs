@@ -1,5 +1,5 @@
 ﻿using Common.Models;
-using Core.Models;
+using Common.Models;
 
 namespace Core.Services;
 

@@ -1,5 +1,4 @@
-﻿using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
+﻿using Amazon.DynamoDBv2.Model;
 using Common.Models;
 using Common.Util;
 using Core.Models;
@@ -37,6 +36,35 @@ public class DynamoDbUtility
         }
         return book;
     }
+    
+    public static InternalUser GetUserFromAttributes(Dictionary<string, AttributeValue> items)
+    {
+        var user = new InternalUser();
+        if (items.TryGetValue(DynamoDbConstants.UserIdColName, out var id))
+        {
+            user.Id = id.S;
+        }
+        if (items.TryGetValue(DynamoDbConstants.UsernameColName, out var username))
+        {
+            user.Username = username.S;
+        }
+        if (items.TryGetValue(DynamoDbConstants.EmailColName, out var email))
+        {
+            user.Email = email.S;
+        }
+
+        if (items.TryGetValue(DynamoDbConstants.PasswordColName, out var password))
+        {
+            user.Password = password.S;
+        }
+        
+        if (items.TryGetValue(DynamoDbConstants.SaltColName, out var salt))
+        {
+            user.Salt = salt.S;
+        }
+        
+        return user;
+    }
 
     public static Dictionary<string, AttributeValue> GetAttributesFromBook(Book book)
     {
@@ -46,6 +74,17 @@ public class DynamoDbUtility
         attributeValues.TryAdd(DynamoDbConstants.ImageSourceColName, new AttributeValue(book.ImageSource));
         attributeValues.TryAdd(DynamoDbConstants.AuthorColName, new AttributeValue(book.Author));
         attributeValues.TryAdd(DynamoDbConstants.SummarySourceColName, new AttributeValue(book.Summary));
+        return attributeValues;
+    }
+
+    public static Dictionary<string, AttributeValue> GetAttributesFromUser(User user)
+    {
+        var attributeValues = new Dictionary<string, AttributeValue>();
+        attributeValues.TryAdd(DynamoDbConstants.UsernameColName, new AttributeValue(user.Username));
+        attributeValues.TryAdd(DynamoDbConstants.UserIdColName, new AttributeValue(user.Id));
+        attributeValues.TryAdd(DynamoDbConstants.EmailColName, new AttributeValue(user.Email));
+        attributeValues.TryAdd(DynamoDbConstants.BooksReadColumn,
+            new AttributeValue(user.BooksRead.Select(book => book.Id).ToList()));
         return attributeValues;
     }
     
