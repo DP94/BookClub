@@ -56,7 +56,7 @@ public class UserController : ControllerBase
     [HttpPut("{id}")]
     [SwaggerOperation("Marks a book as read for this user")]
     [SwaggerResponse(200, "Success")]
-    public async Task<IActionResult> UpdateUser(string id, User user)
+    public async Task<IActionResult> UpdateUser(string id, [FromBody] InternalUser user)
     {
         var latestUser = await this._userService.GetUserById(id);
         if (latestUser == null)
@@ -64,8 +64,16 @@ public class UserController : ControllerBase
             return new NotFoundResult();
         }
 
-        user.Id = id;
-        await this._userService.UpdateUser(UserToInternalUser(user));
+        latestUser.Name = user.Name;
+        latestUser.Email = user.Email;
+        latestUser.Loyalty = user.Loyalty;
+        latestUser.Username = user.Username;
+        if (!string.IsNullOrEmpty(user.Password))
+        {
+            latestUser.Password = user.Password;
+        }
+
+        await this._userService.UpdateUser(latestUser);
         return Ok();
     }
 

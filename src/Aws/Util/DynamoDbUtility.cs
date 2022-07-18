@@ -78,14 +78,21 @@ public class DynamoDbUtility
         return attributeValues;
     }
 
-    public static Dictionary<string, AttributeValue> GetAttributesFromUser(User user)
+    public static Dictionary<string, AttributeValue> GetAttributesFromUser(InternalUser user)
     {
         var attributeValues = new Dictionary<string, AttributeValue>();
         attributeValues.TryAdd(DynamoDbConstants.UsernameColName, new AttributeValue(user.Username));
         attributeValues.TryAdd(DynamoDbConstants.UserIdColName, new AttributeValue(user.Id));
         attributeValues.TryAdd(DynamoDbConstants.EmailColName, new AttributeValue(user.Email));
-        attributeValues.TryAdd(DynamoDbConstants.BooksReadColumn,
-            new AttributeValue(user.BooksRead.Select(book => book.Id).ToList()));
+        if (user.BooksRead.Any())
+        {
+            attributeValues.TryAdd(DynamoDbConstants.BooksReadColumn,
+                new AttributeValue(user.BooksRead.Select(book => book.Id).ToList()));
+        }
+
+        attributeValues.TryAdd(DynamoDbConstants.PasswordColName, new AttributeValue(user.Password));
+        attributeValues.TryAdd(DynamoDbConstants.SaltColName, new AttributeValue(user.Salt));
+
         return attributeValues;
     }
     
