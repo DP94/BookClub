@@ -118,8 +118,8 @@ public class BookController : ControllerBase
 
     private string GetUserIdFromToken(string token)
     {
-        var x = token.Replace("Bearer ", "");
-        var xx = new JwtSecurityTokenHandler().ReadJwtToken(x);
-        return xx.Claims.First(c => c.Type == "UserId").Value;
+        var tokenWithoutBearer = token.Replace("Bearer ", "");
+        var decodedToken = new JwtSecurityTokenHandler().ReadJwtToken(tokenWithoutBearer);
+        return decodedToken.Claims.First(c => c.Type == "UserId").Value;
     }
 }
