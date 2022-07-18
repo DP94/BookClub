@@ -52,6 +52,7 @@ public class Startup
         {
             options.EnableAnnotations();
         });
+        services.AddMemoryCache();
         services.AddHttpContextAccessor();
         services.AddCors(options =>
         {

@@ -12,4 +12,8 @@ public class Meme
     public string ImageName { get; set; }
     
     public string S3URL { get; set; }
+    
+    public string UploadedBy { get; set; }
+    
+    public DateTime CreatedOn { get; set; }
 }

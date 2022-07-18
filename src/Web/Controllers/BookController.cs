@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using Castle.Core.Internal;
 using Common.Models;
@@ -102,7 +103,9 @@ public class BookController : ControllerBase
         {
             Id = Guid.NewGuid().ToString(),
             BookId = id,
-            ImageName = fileName
+            ImageName = fileName,
+            CreatedOn = DateTime.Now,
+            UploadedBy = this.GetUserIdFromToken(Request.Headers.Authorization)
         };
         var memoryStream = new MemoryStream();
         await file.OpenReadStream().CopyToAsync(memoryStream);
@@ -111,5 +114,12 @@ public class BookController : ControllerBase
         await this._memeService.Create(meme);
 
         return new CreatedResult(meme.Id, meme);
+    }
+
+    private string GetUserIdFromToken(string token)
+    {
+        var x = token.Replace("Bearer ", "");
+        var xx = new JwtSecurityTokenHandler().ReadJwtToken(x);
+        return xx.Claims.First(c => c.Type == "UserId").Value;
     }
 }

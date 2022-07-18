@@ -80,7 +80,7 @@ public class LocalDynamoDbSetup : IDisposable
                     ProvisionedThroughput = new ProvisionedThroughput(100, 100),
                     Projection = new Projection
                     {
-                        ProjectionType = ProjectionType.KEYS_ONLY
+                        ProjectionType = ProjectionType.ALL
                     }
                 }
             },
