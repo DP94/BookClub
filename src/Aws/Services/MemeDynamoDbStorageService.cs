@@ -65,12 +65,12 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
     {
         //Save file in S3 first to get key
         var s3Key = $"{Guid.NewGuid().ToString()}{meme.ImageName}";
-        // await this._s3Client.PutObjectAsync(new PutObjectRequest
-        // {
-        //     BucketName = this.BucketName,
-        //     Key = s3Key,
-        //     InputStream = new MemoryStream(meme.Image)
-        // });
+        await this._s3Client.PutObjectAsync(new PutObjectRequest
+        {
+            BucketName = this.BucketName,
+            Key = s3Key,
+            InputStream = new MemoryStream(meme.Image)
+        });
 
         //Persist to DB
         await this._dynamoDb.PutItemAsync(new PutItemRequest
