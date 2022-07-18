@@ -74,7 +74,7 @@ public class UserController : ControllerBase
         }
 
         await this._userService.UpdateUser(latestUser);
-        return Ok();
+        return Ok(InternalUserToUser(latestUser));
     }
 
     private InternalUser UserToInternalUser(User user)
