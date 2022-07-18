@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2.Model;
+﻿using System.Globalization;
+using Amazon.DynamoDBv2.Model;
 using Common.Models;
 using Common.Util;
 using Core.Models;
@@ -109,6 +110,16 @@ public class DynamoDbUtility
         if (items.TryGetValue(DynamoDbConstants.MemeImageKeyColName, out var key))
         {
             meme.S3URL = $"https://{Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME)}.s3.eu-west-2.amazonaws.com/{key.S}";
+        }
+        
+        if (items.TryGetValue(DynamoDbConstants.MemeUploadedByColName, out var user))
+        {
+            meme.UploadedBy = user.S;
+        }
+        
+        if (items.TryGetValue(DynamoDbConstants.MemeCreatedOnColName, out var date))
+        {
+            meme.CreatedOn = DateTime.ParseExact(date.S, "MM/d/yyyy H:mm:ss", CultureInfo.InvariantCulture);
         }
         return meme;
     }

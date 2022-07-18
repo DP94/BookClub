@@ -28,6 +28,8 @@ public static class DynamoDbConstants
     public const string MemeIdColName = "memeId";
     public const string MemeImageNameColName = "imageName";
     public const string MemeImageKeyColName = "s3Key";
+    public const string MemeUploadedByColName = "uploadedBy";
+    public const string MemeCreatedOnColName = "createdOn";
 
     public const string BookIdIndexName = "BookIdIndex";
 }
