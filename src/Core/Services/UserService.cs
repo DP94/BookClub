@@ -15,14 +15,9 @@ public class UserService : IUserService
 
     public Task<InternalUser> CreateUser(InternalUser user)
     {
-        var createdUser = new InternalUser
-        {
-            Id = Guid.NewGuid().ToString(),
-            Username = user.Username,
-            Email = user.Email,
-        };
-        CreateHashedAndSaltedPassword(createdUser, user.Password);
-        return _userDynamoDbStorageService.CreateUser(createdUser);
+        user.Id = Guid.NewGuid().ToString();
+        CreateHashedAndSaltedPassword(user, user.Password);
+        return _userDynamoDbStorageService.CreateUser(user);
     }
     
     private void CreateHashedAndSaltedPassword(InternalUser createdUser, string password)

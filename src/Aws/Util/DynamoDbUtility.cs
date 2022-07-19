@@ -53,6 +53,14 @@ public class DynamoDbUtility
         {
             user.Email = email.S;
         }
+        if (items.TryGetValue(DynamoDbConstants.RealNameColumn, out var realName))
+        {
+            user.Name = realName.S;
+        }
+        if (items.TryGetValue(DynamoDbConstants.LoyalistColumn, out var loyalty))
+        {
+            user.Loyalty = loyalty.S;
+        }
 
         if (items.TryGetValue(DynamoDbConstants.PasswordColName, out var password))
         {
@@ -84,6 +92,8 @@ public class DynamoDbUtility
         attributeValues.TryAdd(DynamoDbConstants.UsernameColName, new AttributeValue(user.Username));
         attributeValues.TryAdd(DynamoDbConstants.UserIdColName, new AttributeValue(user.Id));
         attributeValues.TryAdd(DynamoDbConstants.EmailColName, new AttributeValue(user.Email));
+        attributeValues.TryAdd(DynamoDbConstants.RealNameColumn, new AttributeValue(user.Name));
+        attributeValues.TryAdd(DynamoDbConstants.LoyalistColumn, new AttributeValue(user.Loyalty));
         if (user.BooksRead.Any())
         {
             attributeValues.TryAdd(DynamoDbConstants.BooksReadColumn,
