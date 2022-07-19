@@ -56,7 +56,7 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
             {
                 continue;
             }
-            meme.UploadedBy = user.Username;
+            meme.UploadedBy = user.Name;
         }
         return memes;
     }

@@ -27,7 +27,7 @@ public class UserController : ControllerBase
     {
         var createdUser = await this._userService.CreateUser(userToCreate);
         var createdUrl = $"{this._contextAccessor.HttpContext?.Request.GetEncodedUrl()}/Get/{createdUser.Id}";
-        return new CreatedResult(createdUrl, this.InternalUserToUser(userToCreate));
+        return new CreatedResult(createdUrl, InternalUserToUser(userToCreate));
     }
 
     [HttpGet("{id}")]
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(this.InternalUserToUser(user));
+        return Ok(InternalUserToUser(user));
     }
     
     [HttpGet]
@@ -50,7 +50,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> GetAllUsers()
     {
         var user = await this._userService.GetAllUsers();
-        return Ok(user.Select(this.InternalUserToUser).ToList());
+        return Ok(user.Select(InternalUserToUser).ToList());
     }
 
     [HttpPut("{id}")]
@@ -77,26 +77,17 @@ public class UserController : ControllerBase
         return Ok(InternalUserToUser(latestUser));
     }
 
-    private InternalUser UserToInternalUser(User user)
-    {
-        return new InternalUser
-        {
-            Email = user.Email,
-            Id = user.Id,
-            Username = user.Username,
-            BooksRead = user.BooksRead
-        };
-    }
-    
     //Purposefully exclude passwords
-    private User InternalUserToUser(InternalUser user)
+    private static User InternalUserToUser(InternalUser user)
     {
         return new User
         {
             Email = user.Email,
             Id = user.Id,
             Username = user.Username,
-            BooksRead = user.BooksRead
+            BooksRead = user.BooksRead,
+            Name = user.Name,
+            Loyalty = user.Loyalty
         };
     }
 }

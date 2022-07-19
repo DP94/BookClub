@@ -10,11 +10,9 @@ public class User
     [Required]
     public string Email { get; set; }
     [Required]
-    
     public string Loyalty { get; set; }
-    
+    [Required]
     public string Name { get; set; }
-
     public List<Book> BooksRead { get; set; }
 
     public User()

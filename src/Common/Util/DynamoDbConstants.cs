@@ -21,15 +21,18 @@ public static class DynamoDbConstants
     public const string SaltColName = "salt";
     public const string EmailColName = "email";
     public const string BooksReadColumn = "booksRead";
+    public const string RealNameColumn = "realName";
+    public const string LoyalistColumn = "loyalist";
     public const string UsernameIndexColumn = "UsernameIndex";
     #endregion
     
-
+    #region Meme
     public const string MemeIdColName = "memeId";
     public const string MemeImageNameColName = "imageName";
     public const string MemeImageKeyColName = "s3Key";
     public const string MemeUploadedByColName = "uploadedBy";
     public const string MemeCreatedOnColName = "createdOn";
+    #endregion
 
     public const string BookIdIndexName = "BookIdIndex";
 }

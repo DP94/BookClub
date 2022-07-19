@@ -25,6 +25,8 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
                 { DynamoDbConstants.UserIdColName, new AttributeValue(user.Id) },
                 { DynamoDbConstants.UsernameColName, new AttributeValue(user.Username) },
                 { DynamoDbConstants.EmailColName, new AttributeValue(user.Email) },
+                { DynamoDbConstants.RealNameColumn, new AttributeValue(user.Name) },
+                { DynamoDbConstants.LoyalistColumn, new AttributeValue(user.Loyalty) },
                 { DynamoDbConstants.PasswordColName, new AttributeValue(user.Password) },
                 { DynamoDbConstants.SaltColName, new AttributeValue(user.Salt) }
             }
@@ -148,6 +150,8 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
             Email = resultItems[DynamoDbConstants.EmailColName].S,
             Password = resultItems[DynamoDbConstants.PasswordColName].S,
             Salt = resultItems[DynamoDbConstants.SaltColName].S,
+            Name = resultItems[DynamoDbConstants.RealNameColumn].S,
+            Loyalty = resultItems[DynamoDbConstants.LoyalistColumn].S
         };
     }
 }
