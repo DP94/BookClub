@@ -68,6 +68,7 @@ public class UserController : ControllerBase
         latestUser.Email = user.Email;
         latestUser.Loyalty = user.Loyalty;
         latestUser.Username = user.Username;
+        latestUser.ProfilePicImage = user.ProfilePicImage;
         if (!string.IsNullOrEmpty(user.Password))
         {
             latestUser.Password = user.Password;
@@ -87,7 +88,8 @@ public class UserController : ControllerBase
             Username = user.Username,
             BooksRead = user.BooksRead,
             Name = user.Name,
-            Loyalty = user.Loyalty
+            Loyalty = user.Loyalty,
+            ProfilePictureUrl = user.ProfilePictureUrl
         };
     }
 }
