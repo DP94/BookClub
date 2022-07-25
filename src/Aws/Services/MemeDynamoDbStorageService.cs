@@ -17,15 +17,15 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
     private readonly IAmazonDynamoDB _dynamoDb;
     private readonly IAmazonS3 _s3Client;
     private readonly string BucketName;
-    private IMemoryCache _memoryCache;
-    private IUserDynamoDbStorageService _userDynamoDbStorageService;
+    private readonly IMemoryCache _userMemoryCache;
+    private readonly IUserDynamoDbStorageService _userDynamoDbStorageService;
 
-    public MemeDynamoDbStorageService(IAmazonDynamoDB dynamoDb, IAmazonS3 s3, IMemoryCache memoryCache, IUserDynamoDbStorageService userDynamoDbStorageService)
+    public MemeDynamoDbStorageService(IAmazonDynamoDB dynamoDb, IAmazonS3 s3, IMemoryCache userMemoryCache, IUserDynamoDbStorageService userDynamoDbStorageService)
     {
         this._dynamoDb = dynamoDb;
         this._s3Client = s3;
         this.BucketName = Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME) ?? "";
-        this._memoryCache = memoryCache;
+        this._userMemoryCache = userMemoryCache;
         this._userDynamoDbStorageService = userDynamoDbStorageService;
     }
 
@@ -51,7 +51,7 @@ public class MemeDynamoDbStorageService : IMemeDynamoDbStorageService
         {
             //This is very likely to be similar across many memes; cache the results
             //We can't just store the username because the user may wish to change this later
-            var user = await this._memoryCache.GetOrCreate(meme.UploadedBy, _ => this._userDynamoDbStorageService.GetUserById(meme.UploadedBy));
+            var user = await this._userMemoryCache.GetOrCreate(meme.UploadedBy, _ => this._userDynamoDbStorageService.GetUserById(meme.UploadedBy));
             if (user == null)
             {
                 continue;

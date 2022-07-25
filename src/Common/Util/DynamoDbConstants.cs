@@ -24,6 +24,7 @@ public static class DynamoDbConstants
     public const string RealNameColumn = "realName";
     public const string LoyalistColumn = "loyalist";
     public const string UsernameIndexColumn = "UsernameIndex";
+    public const string UsernameProfilePicS3Key = "profilePicS3Key";
     #endregion
     
     #region Meme

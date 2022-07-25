@@ -73,7 +73,7 @@ public class UserControllerTest
         Assert.IsInstanceOf<OkObjectResult>(result);
         var getResult = result as OkObjectResult;
         var retrievedUsers = getResult.Value as List<User>;
-        Assert.AreEqual(users, retrievedUsers);
+        Assert.AreEqual(users.Count, retrievedUsers.Count);
         
     }
 }
