@@ -112,7 +112,7 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
         return users;
     }
 
-    public async Task<InternalUser>? UpdateUser(InternalUser user)
+    public async Task<InternalUser> UpdateUser(InternalUser user)
     {
         //Unknown.jpg is the name of the default profile picture in S3
         var s3Key = "unknown.jpg";

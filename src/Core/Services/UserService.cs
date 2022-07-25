@@ -31,7 +31,8 @@ public class UserService : IUserService
    
     public async Task<User?> GetUserById(string userId)
     {
-        return InternalUserToUser(await GetInternalUserById(userId));
+        var user = await GetInternalUserById(userId);
+        return user == null ? null : InternalUserToUser(user);
     }
     
     private async Task<InternalUser?> GetInternalUserById(string userId)
