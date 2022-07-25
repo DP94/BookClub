@@ -62,7 +62,7 @@ public class UserControllerTest
     [Test]
     public async Task GetAll_Returns_Ok_Result()
     {
-        var users = new List<InternalUser>
+        var users = new List<User>
         {
             new()
         };

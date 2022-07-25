@@ -27,7 +27,7 @@ public class UserController : ControllerBase
     {
         var createdUser = await this._userService.CreateUser(userToCreate);
         var createdUrl = $"{this._contextAccessor.HttpContext?.Request.GetEncodedUrl()}/Get/{createdUser.Id}";
-        return new CreatedResult(createdUrl, InternalUserToUser(userToCreate));
+        return new CreatedResult(createdUrl, userToCreate);
     }
 
     [HttpGet("{id}")]
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(InternalUserToUser(user));
+        return Ok(user);
     }
     
     [HttpGet]
@@ -49,8 +49,7 @@ public class UserController : ControllerBase
     [SwaggerResponse(200, "Success")]
     public async Task<IActionResult> GetAllUsers()
     {
-        var user = await this._userService.GetAllUsers();
-        return Ok(user.Select(InternalUserToUser).ToList());
+        return Ok(await this._userService.GetAllUsers());
     }
 
     [HttpPut("{id}")]
@@ -58,38 +57,11 @@ public class UserController : ControllerBase
     [SwaggerResponse(200, "Success")]
     public async Task<IActionResult> UpdateUser(string id, [FromBody] InternalUser user)
     {
-        var latestUser = await this._userService.GetUserById(id);
-        if (latestUser == null)
+        var updatedUser = await this._userService.UpdateUser(id, user);
+        if (updatedUser == null)
         {
             return new NotFoundResult();
         }
-
-        latestUser.Name = user.Name;
-        latestUser.Email = user.Email;
-        latestUser.Loyalty = user.Loyalty;
-        latestUser.Username = user.Username;
-        latestUser.ProfilePicImage = user.ProfilePicImage;
-        if (!string.IsNullOrEmpty(user.Password))
-        {
-            latestUser.Password = user.Password;
-        }
-
-        await this._userService.UpdateUser(latestUser);
-        return Ok(InternalUserToUser(latestUser));
-    }
-
-    //Purposefully exclude passwords
-    private static User InternalUserToUser(InternalUser user)
-    {
-        return new User
-        {
-            Email = user.Email,
-            Id = user.Id,
-            Username = user.Username,
-            BooksRead = user.BooksRead,
-            Name = user.Name,
-            Loyalty = user.Loyalty,
-            ProfilePictureS3Url = user.ProfilePictureS3Url
-        };
+        return Ok(updatedUser);
     }
 }

@@ -13,11 +13,11 @@ public class UserService : IUserService
         _userDynamoDbStorageService = userDynamoDbStorageService;
     }
 
-    public Task<InternalUser> CreateUser(InternalUser user)
+    public async Task<User> CreateUser(InternalUser user)
     {
         user.Id = Guid.NewGuid().ToString();
         CreateHashedAndSaltedPassword(user, user.Password);
-        return _userDynamoDbStorageService.CreateUser(user);
+        return InternalUserToUser(await _userDynamoDbStorageService.CreateUser(user));
     }
     
     private void CreateHashedAndSaltedPassword(InternalUser createdUser, string password)
@@ -28,25 +28,62 @@ public class UserService : IUserService
         createdUser.Password = this.GetHashedPassword(password, salt);
         createdUser.Salt = Convert.ToBase64String(salt);
     }
+   
+    public async Task<User?> GetUserById(string userId)
+    {
+        var user = await GetInternalUserById(userId);
+        return user == null ? null : InternalUserToUser(user);
+    }
     
-    public Task<InternalUser?> GetUserById(string userId)
+    private async Task<InternalUser?> GetInternalUserById(string userId)
     {
-        return _userDynamoDbStorageService.GetUserById(userId);
+        return await _userDynamoDbStorageService.GetUserById(userId);
     }
 
-    public Task<List<InternalUser>> GetAllUsers()
+    public async Task<List<User>> GetAllUsers()
     {
-        return this._userDynamoDbStorageService.GetAllUsers();
+        var users = await this._userDynamoDbStorageService.GetAllUsers();
+        return users.Select(InternalUserToUser).ToList();
     }
 
-    public Task<InternalUser> UpdateUser(InternalUser user)
+    public async Task<User?> UpdateUser(string userId, InternalUser user)
     {
-        return this._userDynamoDbStorageService.UpdateUser(user);
+        var latestUser = await GetInternalUserById(userId);
+        if (latestUser == null)
+        {
+            return null;
+        }
+        latestUser.Name = user.Name;
+        latestUser.Email = user.Email;
+        latestUser.Loyalty = user.Loyalty;
+        latestUser.Username = user.Username;
+        latestUser.ProfilePicImage = user.ProfilePicImage;
+        latestUser.BooksRead = user.BooksRead;
+        if (!string.IsNullOrEmpty(user.Password))
+        {
+            latestUser.Password = user.Password;
+        }
+        return InternalUserToUser(await this._userDynamoDbStorageService.UpdateUser(user));
+    }
+    
+    //Purposefully exclude passwords
+    private static User InternalUserToUser(InternalUser user)
+    {
+        return new User
+        {
+            Email = user.Email,
+            Id = user.Id,
+            Username = user.Username,
+            BooksRead = user.BooksRead,
+            Name = user.Name,
+            Loyalty = user.Loyalty,
+            ProfilePictureS3Url = user.ProfilePictureS3Url
+        };
     }
 
-    public Task<InternalUser> GetUserByUsername(string username)
+    public async Task<InternalUser> GetInternalUserByUsername(string username)
     {
-        return this._userDynamoDbStorageService.GetUserByUsername(username);
+        return await this._userDynamoDbStorageService.GetUserByUsername(username);
     }
 
     public string GetHashedPassword(string password, byte[] salt)

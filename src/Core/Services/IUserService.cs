@@ -4,13 +4,12 @@ namespace Core.Services;
 
 public interface IUserService
 {
-    Task<InternalUser> CreateUser(InternalUser user);
-    Task<InternalUser?> GetUserById(string userId);
+    Task<User> CreateUser(InternalUser user);
+    Task<User?> GetUserById(string userId);
+    Task<List<User>> GetAllUsers();
+    Task<User?> UpdateUser(string userId, InternalUser user);
 
-    Task<List<InternalUser>> GetAllUsers();
-    Task<InternalUser> UpdateUser(InternalUser user);
-
-    Task<InternalUser> GetUserByUsername(string username);
+    Task<InternalUser> GetInternalUserByUsername(string username);
 
     string GetHashedPassword(string password, byte[] salt);
 }

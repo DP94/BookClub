@@ -17,14 +17,12 @@ public class UserServiceTest
     }
 
     [Test]
-    public async Task Create_Should_Create_And_Return_User_With_Hashed_Password_And_Salt()
+    public async Task Create_Should_Create_And_Return_User_With_No_Password()
     {
-        var userToCreate = new InternalUser { Password = "Test123"};
+        var userToCreate = new InternalUser { Username = "TestPerson", Password = "Password123"};
         var createdUser = await _userService.CreateUser(userToCreate);
         Assert.IsNotNull(createdUser);
-        Assert.IsNotEmpty(createdUser.Salt);
-        Assert.IsNotEmpty(createdUser.Password);
-        Assert.AreNotEqual(userToCreate.Password, createdUser.Password);
+        Assert.AreNotEqual(userToCreate.Username, createdUser.Username);
     }
 
     [Test]
