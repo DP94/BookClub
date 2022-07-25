@@ -1,5 +1,7 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Amazon.S3;
+using Amazon.S3.Model;
 using Aws.Util;
 using Common.Models;
 using Common.Util;
@@ -9,10 +11,14 @@ namespace Aws.Services;
 public class UserDynamoDbStorageService : IUserDynamoDbStorageService
 {
     private readonly IAmazonDynamoDB _dynamoDb;
+    private readonly IAmazonS3 _s3Client;
+    private readonly string BucketName;
 
-    public UserDynamoDbStorageService(IAmazonDynamoDB amazonDynamoDb)
+    public UserDynamoDbStorageService(IAmazonDynamoDB amazonDynamoDb, IAmazonS3 s3Client)
     {
         this._dynamoDb = amazonDynamoDb;
+        this._s3Client = s3Client;
+        this.BucketName = Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME) ?? "";
     }
 
     public async Task<InternalUser> CreateUser(InternalUser user)
@@ -54,7 +60,7 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
         var items = queryResult.Items.FirstOrDefault();
         return items == null
             ? null
-            : GetUserFromQueryResult(items);
+            : DynamoDbUtility.GetUserFromAttributes(items);
     }
 
     public async Task<List<InternalUser>> GetAllUsers()
@@ -108,12 +114,34 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
 
     public async Task<InternalUser>? UpdateUser(InternalUser user)
     {
+        //Unknown.jpg is the name of the default profile picture in S3
+        var s3Key = "unknown.jpg";
+        if (user.ProfilePicImage != null)
+        {
+            //Save file in S3 first to get key
+            s3Key = $"ProfilePic{user.Name}";
+            var imageBytes = Convert.FromBase64String(user.ProfilePicImage);
+            await this._s3Client.PutObjectAsync(new PutObjectRequest
+            {
+                BucketName = this.BucketName,
+                Key = s3Key,
+                InputStream = new MemoryStream(imageBytes)
+            });
+            
+        }
+        else
+        {
+            await this.DeleteOldProfilePic(user.Name);
+        }
+        user.ProfilePictureS3Url = s3Key;
+
         var response = await this._dynamoDb.PutItemAsync(new PutItemRequest
         {
             TableName = DynamoDbConstants.UserTableName,
             Item = DynamoDbUtility.GetAttributesFromUser(user),
             
         });
+        user.ProfilePictureS3Url = $"https://{BucketName}.s3.eu-west-2.amazonaws.com/{s3Key}";
         return user;
     }
 
@@ -141,17 +169,12 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
         return result.Items.Select(DynamoDbUtility.GetUserFromAttributes).ToList().First();
     }
 
-    private InternalUser GetUserFromQueryResult(Dictionary<string, AttributeValue> resultItems)
+    private async Task DeleteOldProfilePic(string username)
     {
-        return new InternalUser
+        await this._s3Client.DeleteObjectAsync(new DeleteObjectRequest
         {
-            Id = resultItems[DynamoDbConstants.UserIdColName].S,
-            Username = resultItems[DynamoDbConstants.UsernameColName].S,
-            Email = resultItems[DynamoDbConstants.EmailColName].S,
-            Password = resultItems[DynamoDbConstants.PasswordColName].S,
-            Salt = resultItems[DynamoDbConstants.SaltColName].S,
-            Name = resultItems[DynamoDbConstants.RealNameColumn].S,
-            Loyalty = resultItems[DynamoDbConstants.LoyalistColumn].S
-        };
+            BucketName = this.BucketName,
+            Key = $"ProfilePic{username}"
+        });
     }
 }

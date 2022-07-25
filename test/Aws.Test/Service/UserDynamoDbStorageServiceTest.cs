@@ -15,7 +15,7 @@ public class UserDynamoDbStorageServiceTest
     {
         _dynamoDb = new LocalDynamoDbSetup();
         await _dynamoDb.SetupDynamoDb();
-        _userDynamoDbStorageService = new UserDynamoDbStorageService(_dynamoDb.GetClient());
+        _userDynamoDbStorageService = new UserDynamoDbStorageService(_dynamoDb.GetClient(), null);
     }
     
     [Test]
@@ -73,7 +73,9 @@ public class UserDynamoDbStorageServiceTest
             Username = "Test",
             Password = "Password123",
             Email = "test@example.com",
-            Salt = "salty"
+            Salt = "salty",
+            Loyalty = "Traitor",
+            Name = "Horus"
         };
     }
 }
