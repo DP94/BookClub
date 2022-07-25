@@ -75,7 +75,7 @@ public class DynamoDbUtility
         if (items.TryGetValue(DynamoDbConstants.UsernameProfilePicS3Key, out var key))
         {
             var BucketName = Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME) ?? "";
-            user.ProfilePictureUrl = $"https://{BucketName}.s3.eu-west-2.amazonaws.com/{key.S}";
+            user.ProfilePictureS3Url = $"https://{BucketName}.s3.eu-west-2.amazonaws.com/{key.S}";
         }
         
         return user;
@@ -108,7 +108,7 @@ public class DynamoDbUtility
 
         attributeValues.TryAdd(DynamoDbConstants.PasswordColName, new AttributeValue(user.Password));
         attributeValues.TryAdd(DynamoDbConstants.SaltColName, new AttributeValue(user.Salt));
-        attributeValues.TryAdd(DynamoDbConstants.UsernameProfilePicS3Key, new AttributeValue(user.ProfilePictureUrl));
+        attributeValues.TryAdd(DynamoDbConstants.UsernameProfilePicS3Key, new AttributeValue(user.ProfilePictureS3Url));
 
         return attributeValues;
     }

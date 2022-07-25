@@ -89,7 +89,7 @@ public class UserController : ControllerBase
             BooksRead = user.BooksRead,
             Name = user.Name,
             Loyalty = user.Loyalty,
-            ProfilePictureUrl = user.ProfilePictureUrl
+            ProfilePictureS3Url = user.ProfilePictureS3Url
         };
     }
 }

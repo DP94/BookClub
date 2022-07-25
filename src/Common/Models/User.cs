@@ -11,7 +11,7 @@ public class User
     [Required] public string Loyalty { get; set; }
     [Required] public string Name { get; set; }
     public List<Book> BooksRead { get; set; }
-    public string? ProfilePictureUrl { get; set; }
+    public string? ProfilePictureS3Url { get; set; }
     public string? ProfilePicImage { get; set; }
 
     public User()

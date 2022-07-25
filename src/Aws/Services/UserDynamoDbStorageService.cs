@@ -114,6 +114,7 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
 
     public async Task<InternalUser> UpdateUser(InternalUser user)
     {
+        //Unknown.jpg is the name of the default profile picture in S3
         var s3Key = "unknown.jpg";
         if (user.ProfilePicImage != null)
         {
@@ -132,7 +133,7 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
         {
             await this.DeleteOldProfilePic(user.Name);
         }
-        user.ProfilePictureUrl = s3Key;
+        user.ProfilePictureS3Url = s3Key;
 
         var response = await this._dynamoDb.PutItemAsync(new PutItemRequest
         {
@@ -140,7 +141,7 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
             Item = DynamoDbUtility.GetAttributesFromUser(user),
             
         });
-        user.ProfilePictureUrl = $"https://{BucketName}.s3.eu-west-2.amazonaws.com/{s3Key}";
+        user.ProfilePictureS3Url = $"https://{BucketName}.s3.eu-west-2.amazonaws.com/{s3Key}";
         return user;
     }
 
