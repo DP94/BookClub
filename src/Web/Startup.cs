@@ -11,13 +11,13 @@ using Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BookClub;
+namespace BookClub; 
 
 public class Startup
 {
     public Startup(IConfiguration configuration)
     {
-        Configuration = configuration;
+        Configuration = configuration; 
     }
 
     private IConfiguration Configuration { get; }
