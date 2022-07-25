@@ -56,6 +56,7 @@ public class UserService : IUserService
         latestUser.Email = user.Email;
         latestUser.Loyalty = user.Loyalty;
         latestUser.Username = user.Username;
+        latestUser.ProfilePicImage = user.ProfilePicImage;
         latestUser.BooksRead = user.BooksRead;
         if (!string.IsNullOrEmpty(user.Password))
         {
@@ -74,7 +75,8 @@ public class UserService : IUserService
             Username = user.Username,
             BooksRead = user.BooksRead,
             Name = user.Name,
-            Loyalty = user.Loyalty
+            Loyalty = user.Loyalty,
+            ProfilePictureS3Url = user.ProfilePictureS3Url
         };
     }
 
