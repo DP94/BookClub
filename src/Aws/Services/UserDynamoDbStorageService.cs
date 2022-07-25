@@ -106,7 +106,7 @@ public class UserDynamoDbStorageService : IUserDynamoDbStorageService
         return users;
     }
 
-    public async Task<InternalUser> UpdateUser(InternalUser user)
+    public async Task<InternalUser>? UpdateUser(InternalUser user)
     {
         var response = await this._dynamoDb.PutItemAsync(new PutItemRequest
         {

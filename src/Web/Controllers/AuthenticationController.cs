@@ -29,7 +29,7 @@ public class AuthenticationController: ControllerBase
     {
         try
         {
-            var dbUser = await this._userService.GetUserByUsername(user.Username);
+            var dbUser = await this._userService.GetInternalUserByUsername(user.Username);
             if (string.IsNullOrEmpty(user.Username) || dbUser?.Username != user.Username)
             {
                 return Unauthorized();
