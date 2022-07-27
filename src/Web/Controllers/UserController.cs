@@ -69,6 +69,7 @@ public class UserController : ControllerBase
         latestUser.Loyalty = user.Loyalty;
         latestUser.Username = user.Username;
         latestUser.ProfilePicImage = user.ProfilePicImage;
+        latestUser.BooksRead = user.BooksRead;
         if (!string.IsNullOrEmpty(user.Password))
         {
             latestUser.Password = user.Password;

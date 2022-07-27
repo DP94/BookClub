@@ -72,6 +72,17 @@ public class DynamoDbUtility
             user.Salt = salt.S;
         }
 
+        if (items.TryGetValue(DynamoDbConstants.BooksReadColumn, out var books))
+        {
+            foreach (var book in books.SS.Select(bookId => new Book
+                     {
+                         Id = bookId
+                     }))
+            {
+                user.BooksRead.Add(book);
+            }
+        }
+
         if (items.TryGetValue(DynamoDbConstants.UsernameProfilePicS3Key, out var key))
         {
             var BucketName = Environment.GetEnvironmentVariable(Constants.S3_BUCKET_NAME) ?? "";
